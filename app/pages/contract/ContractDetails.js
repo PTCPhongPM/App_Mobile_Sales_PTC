@@ -61,7 +61,7 @@ const tabs = [
 ];
 
 const ContractDetails = ({ navigation, route }) => {
-  const { contract, hasBottomActions } = route.params;
+  const { contract, hasBottomActions, isNotMe } = route.params;
 
   const fileLoading = useSelector(getLoadState);
 
@@ -198,7 +198,7 @@ const ContractDetails = ({ navigation, route }) => {
       headerRight: () => {
         if (
           !isDirector &&
-          contractDetails.state !== ContractStateObject.draft
+          contractDetails.state !== ContractStateObject.draft && !isNotMe
         ) {
           return (
             <ContextMenu
@@ -213,24 +213,26 @@ const ContractDetails = ({ navigation, route }) => {
             </ContextMenu>
           );
         }
-
-        return (
-          <View row>
-            <Button link paddingH-8 onPress={handleEditPressed}>
-              <Edit fill={Colors.surface} />
-            </Button>
-            <ContextMenu
-              actions={contextActions}
-              dropdownMenuMode={true}
-              previewBackgroundColor="transparent"
-              onPress={handelMenuPressed}
-            >
-              <View paddingR-16 paddingL-8>
-                <More fill={Colors.white} />
-              </View>
-            </ContextMenu>
-          </View>
-        );
+        else if(!isNotMe)
+        {
+          return (
+            <View row>
+              <Button link paddingH-8 onPress={handleEditPressed}>
+                <Edit fill={Colors.surface} />
+              </Button>
+              <ContextMenu
+                actions={contextActions}
+                dropdownMenuMode={true}
+                previewBackgroundColor="transparent"
+                onPress={handelMenuPressed}
+              >
+                <View paddingR-16 paddingL-8>
+                  <More fill={Colors.white} />
+                </View>
+              </ContextMenu>
+            </View>
+          );
+        }
       },
     });
   }, [
@@ -387,6 +389,7 @@ const ContractDetails = ({ navigation, route }) => {
             >
               <TabPanel
                 contract={contractDetails}
+                isNotMe={isNotMe}
                 hasBottomActions={hasBottomActions}
                 refetch={refetch}
                 loading={loading}

@@ -35,7 +35,7 @@ import gStyles from "../../configs/gStyles";
 import { DashboardMenuIcons } from "../../helper/constants";
 import { useDirectorRole } from "../../helper/hooks";
 
-const DashboardMenuSection = () => {
+const DashboardMenuSection = ({account}) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
@@ -78,11 +78,12 @@ const DashboardMenuSection = () => {
               const arr = item.id.split("/");
 
               if (arr.length === 1) {
-                navigation.navigate(item.id, {});
+                navigation.navigate(item.id, {account: account});
               } else {
                 navigation.navigate(arr[0], {
                   screen: arr[1],
                   initial: false,
+                  params: {account: account}
                 });
               }
             }

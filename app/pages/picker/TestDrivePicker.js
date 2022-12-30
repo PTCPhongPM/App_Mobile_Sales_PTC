@@ -51,9 +51,9 @@ const TestDrivePicker = ({ navigation, route: { params } }) => {
           bg-stateGreenLight={item.id === params.selected?.id}
         >
           <View row centerV>
-            {item.model.photo.url ? (
+            {item.product?.photo?.url ? (
               <Image
-                source={{ uri: item.model.photo.url }}
+                source={{ uri: item.product?.photo?.url }}
                 width={80}
                 height={40}
                 resizeMode="contain"
@@ -61,7 +61,7 @@ const TestDrivePicker = ({ navigation, route: { params } }) => {
             ) : (
               <DefaultCar width={80} height={40} />
             )}
-            <Text marginL-8>{item.model.description}</Text>
+            <Text marginL-8>{item.model?.description} - {item.product?.name}</Text>
           </View>
           {item.id === params.selected?.id && (
             <Checked fill={Colors.stateGreenDark} />

@@ -15,7 +15,7 @@ import { useGetActivitiesQuery } from "../../../store/api/sale";
 import { SaleActivities } from "../../../helper/constants";
 import Fab from "../../../components/Button/Fab";
 
-const Activities = ({ customer }) => {
+const Activities = ({ customer, isNotMe }) => {
   const navigation = useNavigation();
   const sale = customer.sales[0];
 
@@ -72,7 +72,7 @@ const Activities = ({ customer }) => {
           </View>
         )}
       />
-      {isSaleActive && (
+      {isSaleActive && !isNotMe && (
         <Fab onPress={handleCreateActivity} color={Colors.primary900} />
       )}
     </View>

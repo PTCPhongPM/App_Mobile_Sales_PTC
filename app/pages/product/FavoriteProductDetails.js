@@ -103,7 +103,7 @@ const FavoriteProductDetails = ({ navigation, route }) => {
         value: productDetails.favoriteModel?.model.description,
       },
       {
-        label: "Mẫu xe",
+        label: "MTO",
         value: productDetails.product.name,
       },
       {

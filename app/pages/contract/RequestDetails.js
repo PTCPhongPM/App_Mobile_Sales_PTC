@@ -52,7 +52,7 @@ const tabs = [
 ];
 
 const RequestDetails = ({ navigation, route }) => {
-  const { request, customer = {} } = route.params;
+  const { request, customer = {}, isNotMe } = route.params;
 
   const notification = useNotification();
   const isDirector = useDirectorRole();
@@ -189,7 +189,7 @@ const RequestDetails = ({ navigation, route }) => {
   );
 
   useEffect(() => {
-    if (isSaleActive && !isDirector) {
+    if (isSaleActive && !isDirector && !isNotMe) {
       navigation.setOptions({
         headerRight: () =>
           requestDetails.state === RequestStateObject.draft ? (

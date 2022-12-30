@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
 
 const TestDriveDetails = ({ navigation, route: { params } }) => {
   const notification = useNotification();
-  const { testDrive, moveToCustomer = true } = params;
+  const { testDrive, moveToCustomer = true, isNotMe } = params;
 
   const isDirector = useDirectorRole();
 
@@ -405,8 +405,8 @@ const TestDriveDetails = ({ navigation, route: { params } }) => {
         <View bg-surface paddingV-16 style={[gStyles.borderV, gStyles.shadow]}>
           <View center paddingV-8 row>
             <ProductImage
-              uri={testDriveDetails.testProduct?.model?.photo?.url}
-              name={testDriveDetails.testProduct?.model.description}
+              uri={testDriveDetails.testProduct?.product?.photo?.url}
+              name={testDriveDetails.testProduct?.product?.description}
             />
           </View>
           <View bg-surface paddingH-16 paddingT-8>
@@ -459,8 +459,8 @@ const TestDriveDetails = ({ navigation, route: { params } }) => {
           </View>
         </View>
 
-        {testDriveDetails.state === TestDriveStateObject.approved &&
-          !isDirector && (
+        {testDriveDetails.state === TestDriveStateObject.approved && 
+          !isDirector && !isNotMe &&(
             <View paddingH-16 paddingT-10 bg-surface>
               <Button
                 bg-primary900

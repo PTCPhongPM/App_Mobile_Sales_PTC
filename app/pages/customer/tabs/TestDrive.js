@@ -28,7 +28,7 @@ import { showDeleteAlert } from "../../../helper/alert";
 import { checkSaleActive } from "../../../helper/utils";
 import HorizontalButtonTab from "../../../components/Button/HorizontalButtonTab";
 
-const TestDrive = ({ customer }) => {
+const TestDrive = ({ customer, isNotMe }) => {
   const navigation = useNavigation();
   const notification = useNotification();
   const sale = customer.sales[0];
@@ -57,9 +57,10 @@ const TestDrive = ({ customer }) => {
   );
 
   const toTestDriveDetails = useCallback(
-    (testDrive) =>
+    (testDrive,isNotMe) =>
       navigation.navigate("TestDriveDetails", {
         testDrive,
+        isNotMe,
         moveToCustomer: false,
       }),
     [navigation]
@@ -190,7 +191,7 @@ const TestDrive = ({ customer }) => {
 
   const renderItem = useCallback(
     ({ item }) => {
-      if (isSaleActive) {
+      if (isSaleActive && !isNotMe) {
         const leftActions = [];
         const rightActions = [
           {
@@ -228,7 +229,7 @@ const TestDrive = ({ customer }) => {
           <SwipeWrapper leftActions={leftActions} rightActions={rightActions}>
             <TestDriveCard
               testDrive={item}
-              onPress={() => toTestDriveDetails(item)}
+              onPress={() => toTestDriveDetails(item,isNotMe)}
             />
           </SwipeWrapper>
         );
@@ -237,7 +238,7 @@ const TestDrive = ({ customer }) => {
       return (
         <TestDriveCard
           testDrive={item}
-          onPress={() => toTestDriveDetails(item)}
+          onPress={() => toTestDriveDetails(item,isNotMe)}
         />
       );
     },
@@ -275,7 +276,7 @@ const TestDrive = ({ customer }) => {
         ListFooterComponent={() => isSaleActive && <View height={148} />}
       />
 
-      {isSaleActive && (
+      {isSaleActive && !isNotMe &&(
         <>
           <Fab
             isCalendar

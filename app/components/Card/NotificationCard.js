@@ -46,7 +46,7 @@ const NotificationCard = ({ notification, onPress }) => {
       case "testdrive":
         return (
           <Image
-            source={{ uri: notification.file.url }}
+            source={{ uri: notification.file?.url }}
             width={40}
             height={24}
             resizeMode="stretch"

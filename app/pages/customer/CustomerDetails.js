@@ -222,12 +222,12 @@ const CustomerDetails = ({ navigation, route }) => {
     navigation.setOptions({
       headerRight: () => (
         <View row>
-          {isSaleActive && (
+          {isSaleActive && !customer.isNotMe && (
             <Button link paddingH-8 onPress={handleEditPressed}>
               <Edit fill={Colors.surface} />
             </Button>
           )}
-          <ContextMenu
+         {!customer.isNotMe && (<ContextMenu
             actions={contextActions}
             dropdownMenuMode
             previewBackgroundColor="transparent"
@@ -237,7 +237,9 @@ const CustomerDetails = ({ navigation, route }) => {
               <More fill={Colors.surface} />
             </View>
           </ContextMenu>
+         )}
         </View>
+         
       ),
     });
   }, [
@@ -278,7 +280,7 @@ const CustomerDetails = ({ navigation, route }) => {
 
   const renderBottomOptions = useCallback(
     () =>
-      isSaleActive && (
+      isSaleActive && !customer.isNotMe &&(
         <View center bg-surface style={[gStyles.shadowUp, gStyles.borderT]}>
           <View height={6} />
           <View
@@ -336,7 +338,7 @@ const CustomerDetails = ({ navigation, route }) => {
             />
           )}
         </View>
-
+        {(customerDetails.category!='frozen' && customerDetails.category!='lost') &&
         <TabController
           items={tabs}
           selectedIndex={selectedTab}
@@ -355,12 +357,18 @@ const CustomerDetails = ({ navigation, route }) => {
               >
                 <tab.component
                   customer={customerDetails}
+                  isNotMe={customer.isNotMe}
                   changeTab={changeTab}
                 />
               </TabController.TabPage>
             ))}
           </View>
         </TabController>
+      }
+      {
+        (customerDetails.category=='frozen' || customerDetails.category=='lost') &&
+          <Information customer={customerDetails}></Information>
+      }
         {renderBottomOptions()}
       </View>
     </BasePage>

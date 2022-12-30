@@ -103,7 +103,7 @@ const Dashboard = ({ navigation }) => {
           <DashboardStatsSection />
         </ImageBackground>
 
-        <DashboardMenuSection />
+        <DashboardMenuSection account={account}/>
         <DashboardTargetSection myRank={myRank} />
 
         <DashboardGlorySection />

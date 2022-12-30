@@ -59,7 +59,7 @@ const CarFavoriteCard = ({
         <View row marginT-8>
           {model && (
             <Text flex>
-              <Text subtitle2>Mẫu xe: </Text>
+              <Text subtitle2>MTO: </Text>
               <Text body2 textBlackMedium>
                 {model}
               </Text>

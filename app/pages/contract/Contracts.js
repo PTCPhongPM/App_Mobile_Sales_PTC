@@ -18,7 +18,7 @@ import { Search, SolidDescription, SolidPDF, Tune } from "../../configs/assets";
 
 import {
   useDuplicateContractMutation,
-  useGetContractsQuery,
+  useGetContractsLeadQuery,
   useGetContractTemplatesQuery,
 } from "../../store/api/contract";
 
@@ -29,7 +29,7 @@ import { groupContracts } from "../../helper/utils";
 import { useNotification } from "../../providers/NotificationProvider";
 import { selectQuery, setQuery } from "../../store/slices/contract";
 
-const Contracts = () => {
+const Contracts = ({route}) => {
   useStatusBar("light-content");
   const navigation = useNavigation();
   const notification = useNotification();
@@ -41,7 +41,7 @@ const Contracts = () => {
   const [isExporting, setIsExporting] = useState(false);
   const [selected, setSelected] = useState({});
 
-  const { data = [], isFetching, refetch } = useGetContractsQuery();
+  const { data = [], isFetching, refetch } = useGetContractsLeadQuery({accountId:route?.params?.account?.id});
   const [duplicateContract, { isLoading, isSuccess }] =
     useDuplicateContractMutation();
 

@@ -23,6 +23,7 @@ import { dateFormatter, getCustomerName } from "../../../helper/utils";
 
 const ContractProductTab = ({
   contract,
+  isNotMe,
   hasBottomActions,
   refetch,
   loading,
@@ -37,7 +38,7 @@ const ContractProductTab = ({
       },
       {
         label: "Số điện thoại",
-        value: contract.request.holderInfo.phoneNumber,
+        value: isNotMe == true ? contract.request.holderInfo.phoneNumber.slice(0, -3) + "xxx" : contract.request.holderInfo.phoneNumber, 
       },
       {
         label: "Tỉnh/ Thành phố",
@@ -75,7 +76,7 @@ const ContractProductTab = ({
       },
       {
         label: "Số điện thoại",
-        value: contract.request.contactInfo.phoneNumber,
+        value: isNotMe == true ? contract.request.contactInfo.phoneNumber.slice(0, -3) + "xxx" : contract.request.contactInfo.phoneNumber,
       },
       {
         label: "Tỉnh/ Thành phố",

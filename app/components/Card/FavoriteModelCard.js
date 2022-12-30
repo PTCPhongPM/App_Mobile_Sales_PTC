@@ -11,7 +11,7 @@ import { SaleProcesses } from "../../helper/constants";
 import SaleStepper from "../Process/SaleStepper";
 import CarCard from "./CarCard";
 
-const FavoriteModelCard = ({ item, isBought, onUpdate, onPress }) => (
+const FavoriteModelCard = ({ item, isBought, onUpdate, onPress, isNotMe }) => (
   <View bg-surface marginB-12 style={gStyles.borderT}>
     <View style={gStyles.borderB}>
       <View paddingH-16 paddingV-8>
@@ -28,7 +28,7 @@ const FavoriteModelCard = ({ item, isBought, onUpdate, onPress }) => (
               </Text>
             </Text>
           </Pressable>
-          {onUpdate && (
+          {onUpdate && !isNotMe &&(
             <TouchableOpacity
               onPress={onUpdate}
               bg-surface

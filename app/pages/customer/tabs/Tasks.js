@@ -23,7 +23,7 @@ import {
 } from "../../../store/api/task";
 import Fab from "../../../components/Button/Fab";
 
-const Tasks = ({ customer }) => {
+const Tasks = ({ customer , isNotMe}) => {
   const navigation = useNavigation();
   const notification = useNotification();
 
@@ -148,7 +148,7 @@ const Tasks = ({ customer }) => {
           }}
         />
       </View>
-      {isSaleActive && (
+      {isSaleActive &&  !isNotMe && (
         <Fab onPress={handleCreateTask} color={Colors.primary900} />
       )}
     </View>

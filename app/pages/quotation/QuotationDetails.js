@@ -154,7 +154,7 @@ const QuotationDetails = ({ navigation, route: { params } }) => {
         value: data.favoriteProduct.favoriteModel.model.description,
       },
       {
-        label: "Mẫu xe",
+        label: "MTO",
         value: data.favoriteProduct.product.name,
       },
       {

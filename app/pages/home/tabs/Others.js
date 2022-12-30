@@ -104,7 +104,7 @@ const Others = ({ navigation }) => {
       {
         icon: Description,
         text: "Hợp đồng",
-        onPress: () => navigation.navigate("Contracts"),
+        onPress: () => navigation.navigate("Contracts",{account:account} ),
       },
       {
         icon: DirectionsCar,
@@ -119,12 +119,12 @@ const Others = ({ navigation }) => {
       {
         icon: TestDrive,
         text: "Lái thử",
-        onPress: () => navigation.navigate("TestDriveManagement"),
+        onPress: () => navigation.navigate("TestDriveManagement",{account:account} ),
       },
       {
         icon: LocalShipping,
         text: "Lịch giao xe",
-        onPress: () => navigation.navigate("DeliverySchedule", {}),
+        onPress: () => navigation.navigate("DeliverySchedule",{account:account}),
       },
       {
         icon: DeliveryComplete,

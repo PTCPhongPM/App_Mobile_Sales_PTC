@@ -13,7 +13,7 @@ import { useGetFavoriteProductsQuery } from "../../../store/api/sale";
 import gStyles from "../../../configs/gStyles";
 import { checkSaleActive } from "../../../helper/utils";
 
-const Products = ({ customer }) => {
+const Products = ({ customer, isNotMe }) => {
   const navigation = useNavigation();
   const sale = customer.sales[0];
 
@@ -93,7 +93,7 @@ const Products = ({ customer }) => {
       <Headline
         label="Xe quan tâm"
         onPress={
-          Boolean(favoriteProducts.length) && isSaleActive
+          Boolean(favoriteProducts.length) && isSaleActive && !isNotMe
             ? () => handleAddFavoriteProduct({ otherBrand: false })
             : null
         }
@@ -105,6 +105,7 @@ const Products = ({ customer }) => {
             <FavoriteModelCard
               key={product.id}
               item={product}
+              isNotMe={isNotMe}
               onUpdate={
                 isSaleActive ? () => handleUpdatePressed(product) : undefined
               }
@@ -122,7 +123,7 @@ const Products = ({ customer }) => {
           <Text body2 textBlackMedium>
             Khách hàng chưa có xe quan tâm
           </Text>
-          {isSaleActive && (
+          {isSaleActive && !isNotMe && (
             <Button
               borderRadius={4}
               outline
@@ -169,7 +170,7 @@ const Products = ({ customer }) => {
           <Text body2 textBlackMedium>
             Khách hàng chưa có xe quan tâm hãng khác
           </Text>
-          {isSaleActive && (
+          {isSaleActive && !isNotMe  &&(
             <Button
               borderRadius={4}
               outline

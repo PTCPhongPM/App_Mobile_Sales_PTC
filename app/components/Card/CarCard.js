@@ -46,7 +46,7 @@ const CarCard = ({
           <View row marginT-8>
             {model && (
               <Text flex numberOfLines={1} marginR-4>
-                <Text subtitle2>Mẫu xe: </Text>
+                <Text subtitle2>MTO: </Text>
                 <Text body2 textBlackMedium>
                   {model}
                 </Text>

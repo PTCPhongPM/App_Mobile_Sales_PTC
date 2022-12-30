@@ -36,16 +36,26 @@ export const Genders = {
 };
 
 export const CustomerApproachSources = [
-  "Google Ads",
-  "Fanpage",
-  "Online khác",
-  "Khách showroom",
-  "Hotline",
-  "Khách hàng cũ",
-  "KH từ BGD",
-  "Nguồn khác",
-  "KH từ sự kiện",
-  "KH từ môi giới",
+  "DL - Google Ads",
+  "DL - Fanpape",
+  "DL - Online khác",
+  "DL - Khách showroom",
+  "DL - Hotline",
+  "DL - Khách hàng cũ",
+  "DL - KH từ BGĐ",
+  "DL - Nguồn khác",
+  "SC - Google Ads",
+  "SC - Fanpage",
+  "SC - Online khác",
+  "SC - KH từ sự kiện",
+  "SC - KH từ môi giới",
+  "SC - Khách cũ",
+  "SC - Người thân của SCs",
+  "SC - Được giới thiệu",
+  "SC - Nguồn khác",
+  "Hãng - Từ Hotline",
+  "Hãng - Từ Online",
+  "Hãng - Nguồn khác"
 ];
 
 export const CustomerStates = {
@@ -65,11 +75,9 @@ export const ExpectedSigningDate = [
 ];
 
 export const PaymentMethods = [
-  "Trả thẳng",
-  "Trả góp",
-  "Thuê tài chính",
-  "Trả chậm",
-  "Ngân hàng",
+  "Tiền mặt",
+  "Chuyển khoản",
+  "Trả góp"
 ];
 
 export const CustomerRoles = [
@@ -153,16 +161,26 @@ export const SaleProcessIndexes = {
 export const ProcessesLastIndex = 7;
 
 export const CustomerSources = [
-  "Google Ads",
-  "Fanpage",
-  "Online khác",
-  "Khách showroom",
-  "Hotline",
-  "Khách hàng cũ",
-  "KH từ BGD",
-  "Nguồn khác",
-  "KH từ sự kiện",
-  "KH từ môi giới",
+  "DL - Google Ads",
+  "DL - Fanpape",
+  "DL - Online khác",
+  "DL - Khách showroom",
+  "DL - Hotline",
+  "DL - Khách hàng cũ",
+  "DL - KH từ BGĐ",
+  "DL - Nguồn khác",
+  "SC - Google Ads",
+  "SC - Fanpage",
+  "SC - Online khác",
+  "SC - KH từ sự kiện",
+  "SC - KH từ môi giới",
+  "SC - Khách cũ",
+  "SC - Người thân của SCs",
+  "SC - Được giới thiệu",
+  "SC - Nguồn khác",
+  "Hãng - Từ Hotline",
+  "Hãng - Từ Online",
+  "Hãng - Nguồn khác"
 ];
 
 export const LostCustomerReasons = {
@@ -190,10 +208,11 @@ export const FrozenCustomerReasons = [
   "Không liên lạc được",
   "Thay đổi kế hoạch",
   "Không có nhu cầu",
+  "Vấn đề tài chính cá nhân",
   "Khác",
 ];
 
-export const IntendedUses = ["Kinh doanh", "Sử dụng cá nhân", "Cho thuê"];
+export const IntendedUses = ["Kinh doanh", "Cá nhân", "Gia đình"];
 
 export const BuyingTypes = ["Mua lần đầu", "Mua thay thế", "Mua thêm"];
 
@@ -215,7 +234,10 @@ export const ActivityResults = [
   "Phân vân giá",
   "Phân vân tài chính",
   "Phân vân loại xe",
+  "Phân vân xe hãng khác",
   "Phân vân hỏi ý kiến",
+  "Chờ lái thử rồi quyết định",
+  "Chờ xem xe rồi quyết định",
   "Đợi có xe",
   "Khác",
 ];
@@ -340,30 +362,10 @@ export const DeliveryPlaces = ["Tại đại lý", "Ngoài đại lý"];
 
 export const IncompleteTestDriveReasons = [
   "Xe lái thử không sẵn sàng",
-  "Đường lái thử không sẵn sàng",
-  "Khách hàng từ chối lái thử",
-  "Khách hàng bận",
-  "Lý do sức khỏe của TVBH",
-  "Khách hàng đã từng sử dụng xe",
-  "Khách hàng đã lái thử ở đại lý khác",
-  "Khách hàng tin tưởng sản phẩm",
-  "Khách hàng đã tìm hiểu qua bạn bè, người thân",
-  "Khách hàng không phải người trực tiếp sử dụng xe",
-  "Xe giao không sẵn sàng",
-  "Khoang giao xe không sẵn sàng",
-  "Khách hàng từ chối giao xe",
-  "Khách hàng bận",
-  "Lý do sức khỏe của TVBH",
-  "Không đủ dặm",
-  "Khách hàng bận",
-  "Lý do bảo hiểm 1",
-  "Lý do bảo hiểm 2",
-  "Lý do bảo hiểm 3",
-  "Lý do bảo hiểm 4",
-  "Lý do tài chính 1",
-  "Lý do tài chính 2",
-  "Lý do tài chính 3",
-  "Khác",
+  "Khách hàng thay đổi kế hoạch",
+  "Lý do sức khoẻ của TVBH",
+  "Cung đường lái thử không sẵn sàng",
+  "Lý do Khác"
 ];
 
 export const Formalities = {

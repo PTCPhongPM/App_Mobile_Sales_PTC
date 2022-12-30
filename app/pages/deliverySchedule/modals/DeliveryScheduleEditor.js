@@ -299,7 +299,7 @@ const DeliveryScheduleEditor = ({ navigation, route }) => {
           ]}
         >
           <ProductImage
-            uri={allocation?.favoriteProduct.favoriteModel.model.photo.url}
+            uri={allocation?.favoriteProduct.product?.photo?.url}
             name={allocation?.favoriteProduct.product.name}
           />
         </TouchableOpacity>

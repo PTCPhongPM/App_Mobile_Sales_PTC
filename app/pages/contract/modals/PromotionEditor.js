@@ -262,7 +262,7 @@ const PromotionEditor = ({ navigation, route: { params } }) => {
                       <TextInput
                         placeholder="Nhập"
                         keyboardType="numeric"
-                        value={value ? String(value) : ""}
+                        value={value ? String(value) : "1"}
                         error={error}
                         isError={Boolean(error)}
                         onChangeText={onChange}

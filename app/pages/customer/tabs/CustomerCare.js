@@ -20,7 +20,7 @@ const list = [
   { label: "Bình luận", tabComponent: Comments },
 ];
 
-const CustomerCare = ({ customer }) => {
+const CustomerCare = ({ customer,isNotMe }) => {
   const [indexTabActive, setIndexTabActive] = useState(0);
 
   return (
@@ -59,7 +59,7 @@ const CustomerCare = ({ customer }) => {
               key={tab.label}
               index={index}
             >
-              <tab.tabComponent customer={customer} />
+              <tab.tabComponent customer={customer} isNotMe={isNotMe} />
             </TabController.TabPage>
           ))}
         </View>

@@ -33,7 +33,7 @@ import {
   useGetDeliverySchedulesQuery,
 } from "../../../store/api/delivery";
 
-const ContractDeliveryTab = ({ contract, refetch, loading }) => {
+const ContractDeliveryTab = ({ contract, refetch, loading,isNotMe }) => {
   const navigation = useNavigation();
   const notification = useNotification();
 
@@ -76,7 +76,7 @@ const ContractDeliveryTab = ({ contract, refetch, loading }) => {
 
   const renderAllocationProducts = useCallback(
     (item) =>
-      item.state === "ready" ? (
+      item.state === "ready" && !isNotMe ? (
         <SwipeWrapper
           key={item.id}
           rightActions={[
@@ -120,7 +120,7 @@ const ContractDeliveryTab = ({ contract, refetch, loading }) => {
             Bạn chưa có lịch giao xe
           </Text>
           <View row center>
-            <Button
+            {!isNotMe &&(<Button
               borderRadius={4}
               outline
               outlineColor={Colors.primary900}
@@ -132,6 +132,7 @@ const ContractDeliveryTab = ({ contract, refetch, loading }) => {
                 Tạo lịch giao xe
               </Text>
             </Button>
+  )}
           </View>
         </View>
       );
@@ -180,7 +181,7 @@ const ContractDeliveryTab = ({ contract, refetch, loading }) => {
             schedule={item}
             onPress={() =>
               navigation.navigate("DeliveryScheduleDetails", {
-                deliverySchedule: item,
+                deliverySchedule: item,isNotMe
               })
             }
           />
@@ -285,7 +286,7 @@ const ContractDeliveryTab = ({ contract, refetch, loading }) => {
       <Headline
         label="Lịch giao xe"
         onPress={
-          canCreateDeliverySchedule && deliverySchedules.length
+          canCreateDeliverySchedule && deliverySchedules.length && !isNotMe
             ? toDeliveryScheduleEditor
             : undefined
         }

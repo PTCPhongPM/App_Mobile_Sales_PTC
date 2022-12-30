@@ -19,8 +19,8 @@ import FrozenCustomer from "./tabs/FrozenCustomer";
 
 const tabs = [
   { label: "Tất cả", byRule: undefined },
-  { label: "Chủ động", byRule: true },
-  { label: "Bị động", byRule: false },
+  { label: "Chủ động", byRule: false },
+  { label: "Bị động", byRule: true },
 ];
 
 const FrozenCustomers = ({ navigation }) => {

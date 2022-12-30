@@ -48,7 +48,7 @@ const FavoriteProductPicker = ({ navigation, route: { params } }) => {
         type={item.favoriteModel.model.description}
         color={item.exteriorColor.name}
         inside={item.interiorColor?.name}
-        image={item.favoriteModel.model.photo?.url}
+        image={item.product.photo?.url}
         canSelect
         selected={item.id === selected?.id}
         onSelect={() => handleItemPressed(item)}

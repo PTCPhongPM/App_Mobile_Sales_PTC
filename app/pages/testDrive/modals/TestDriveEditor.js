@@ -42,6 +42,7 @@ import {
   getTestDriveUploadFiles,
   toDate,
   toISO,
+  formatTimeLocal
 } from "../../../helper/utils";
 
 import {
@@ -164,8 +165,8 @@ const TestDriveEditor = ({ navigation, route: { params } }) => {
         road: data.road,
         testProductId: data.testProduct.id,
         note: data.note,
-        startingTime: formatTime(data.startingTime),
-        endingTime: formatTime(data.endingTime),
+        startingTime: formatTimeLocal(data.startingTime),
+        endingTime: formatTimeLocal(data.endingTime),
       };
       if (data.supporter) {
         _data.supporterId = data.supporter.id;
@@ -315,9 +316,9 @@ const TestDriveEditor = ({ navigation, route: { params } }) => {
     <BasePage loading={loading}>
       <View bg-white padding-16 style={[gStyles.borderV, gStyles.shadow]}>
         <TouchableOpacity row center paddingV-8 onPress={handleProductPress}>
-          {testProduct && testProduct.model.photo.url ? (
+          {testProduct && testProduct.product?.photo?.url ? (
             <Image
-              source={{ uri: testProduct.model.photo.url }}
+              source={{ uri: testProduct.product?.photo?.url }}
               width={70}
               height={32}
               resizeMode="contain"
@@ -327,7 +328,7 @@ const TestDriveEditor = ({ navigation, route: { params } }) => {
           )}
 
           <Text subtitle1 textBlackMedium textBlackHigh={testProduct} marginL-8>
-            {testProduct ? testProduct?.model.description : "Chọn xe"}
+            {testProduct ? testProduct?.product.description : "Chọn xe"}
           </Text>
         </TouchableOpacity>
         {errors.testProduct && <View height={0.5} bg-stateRedDefault />}

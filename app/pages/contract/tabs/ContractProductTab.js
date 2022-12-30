@@ -32,7 +32,7 @@ const ContractProductTab = ({ contract, refetch, loading }) => {
         value: contract.request.favoriteProduct.favoriteModel.model.description,
       },
       {
-        label: "Mẫu xe",
+        label: "MTO",
         value: contract.request.favoriteProduct.product.name,
       },
       {
@@ -259,7 +259,7 @@ const ContractProductTab = ({ contract, refetch, loading }) => {
         <View padding-16 bg-surface style={[gStyles.borderV, gStyles.shadow]}>
           <ProductImage
             name={contract.request.favoriteProduct.product.name}
-            uri={contract.request.favoriteProduct.favoriteModel.model.photo.url}
+            uri={contract.request.favoriteProduct.product?.photo?.url}
           />
           {productInfo.map(renderItem)}
         </View>

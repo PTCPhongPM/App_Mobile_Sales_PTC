@@ -20,7 +20,7 @@ import { useGetStatsQuery } from "../../../store/api/sale";
 import { Empty } from "../../../configs/assets";
 import { checkSaleActive } from "../../../helper/utils";
 
-const Overview = ({ customer, changeTab }) => {
+const Overview = ({ customer, changeTab, isNotMe }) => {
   const navigation = useNavigation();
   const sale = customer?.sales[0];
 
@@ -177,6 +177,7 @@ const Overview = ({ customer, changeTab }) => {
                     <FavoriteModelCard
                       item={model}
                       key={model.id}
+                      isNotMe={isNotMe}
                       onUpdate={
                         isSaleActive
                           ? () => handleUpdatePressed(model)

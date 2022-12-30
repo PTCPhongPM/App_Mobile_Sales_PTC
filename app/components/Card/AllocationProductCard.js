@@ -16,7 +16,7 @@ import { formatDate } from "../../helper/utils";
 import AllocationProductStepper from "../Process/AllocationProductStepper";
 
 const AllocationProductCard = ({ item, canSelect, selected, onSelect }) => {
-  const uri = item.favoriteProduct.favoriteModel?.model.photo.url;
+  const uri = item.favoriteProduct.product?.photo.url;
 
   const Container = canSelect ? TouchableOpacity : View;
 

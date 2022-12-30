@@ -569,7 +569,7 @@ const QuotationEditor = ({ navigation, route: { params } }) => {
               rightDisabled
             />
             <TextRow
-              left="Mẫu xe"
+              left="MTO"
               right={selectedProduct.favoriteModel?.model.description}
               rightDisabled
             />

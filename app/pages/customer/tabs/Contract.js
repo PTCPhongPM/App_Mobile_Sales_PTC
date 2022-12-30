@@ -34,7 +34,7 @@ import {
 import { selectQuery, setQuery } from "../../../store/slices/contract";
 import { downloadPDF } from "../../../helper/file";
 
-const Contract = ({ customer, changeTab }) => {
+const Contract = ({ customer, changeTab, isNotMe }) => {
   const navigation = useNavigation();
   const notification = useNotification();
 
@@ -185,6 +185,7 @@ const Contract = ({ customer, changeTab }) => {
             onPress={() =>
               navigation.navigate("ContractDetails", {
                 contract: item,
+                isNotMe:isNotMe,
                 hasBottomActions: false,
               })
             }

@@ -402,7 +402,7 @@ const RequestProductTab = ({ form, navigation, route }) => {
           <View bg-white padding-16 style={[gStyles.borderV, gStyles.shadow]}>
             <TouchableOpacity onPress={handleChooseFavoriteProduct}>
               <ProductImage
-                uri={selectedProduct.favoriteModel.model.photo?.url}
+                uri={selectedProduct.product.photo?.url}
                 name={selectedProduct.product?.name}
               />
             </TouchableOpacity>
@@ -411,14 +411,14 @@ const RequestProductTab = ({ form, navigation, route }) => {
               left="Loại xe"
               leftRequired
               rightDisabled
-              right={selectedProduct.product?.name}
+              right={selectedProduct.favoriteModel?.model.description}
             />
             <TextRow
               marginT-10
-              left="Mẫu xe"
+              left="MTO"
               leftRequired
               rightDisabled
-              right={selectedProduct.favoriteModel?.model.description}
+              right={selectedProduct.product?.name}
             />
             <TextRow
               marginT-10
@@ -449,6 +449,7 @@ const RequestProductTab = ({ form, navigation, route }) => {
                 <Controller
                   name="quantity"
                   control={control}
+                  defaultValue={1}
                   render={({
                     field: { onChange, value },
                     fieldState: { error },
@@ -544,6 +545,7 @@ const RequestProductTab = ({ form, navigation, route }) => {
               left="Giá niêm yết"
               leftRequired
               rightDisabled
+              name="listedPrice"
               right={currencyFormatter(
                 policy?.listedPrice || selectedProduct.product?.listedPrice
               )}

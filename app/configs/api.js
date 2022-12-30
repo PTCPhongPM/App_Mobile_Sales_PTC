@@ -1,4 +1,5 @@
-const domain = "https://ptc.ansuzdev.com";
+//const domain = "https://ptc.ansuzdev.com";
+const domain = "https://apiptc.phattien.net:8009";
 const version = "v1";
 
 const baseURL = `${domain}/api/${version}`;

@@ -20,6 +20,20 @@ const api = ptcApi.injectEndpoints({
             ]
           : [{ type: "Contract", id: "List" }],
     }),
+    getContractsLead: builder.query({
+      query: (params) => ({
+        url: "contract/list/lead",
+        method: "GET",
+        params,
+      }),
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map(({ id }) => ({ type: "Contract", id })),
+              { type: "Contract", id: "List" },
+            ]
+          : [{ type: "Contract", id: "List" }],
+    }),
     getContractListPending: builder.query({
       query: () => ({
         url: "contract/list/pending",
@@ -152,6 +166,7 @@ export const {
   useGetContractListPendingQuery,
   useGetContractQuery,
   useGetContractsQuery,
+  useGetContractsLeadQuery,
 
   useUpdateContractMutation,
 

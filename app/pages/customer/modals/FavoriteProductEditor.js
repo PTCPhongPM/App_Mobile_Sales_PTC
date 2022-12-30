@@ -356,7 +356,7 @@ const FavoriteProductEditor = ({ navigation, route }) => {
           </View>
 
           <View row centerV marginT-10>
-            <InputLabel text="Mẫu xe" required />
+            <InputLabel text="MTO" required />
             <View flex-2>
               <Controller
                 name="product"
@@ -409,7 +409,7 @@ const FavoriteProductEditor = ({ navigation, route }) => {
             />
           </View>
           <View row marginT-10 centerV>
-            <InputLabel text="Mẫu xe" required />
+            <InputLabel text="MTO" required />
             <SelectField
               flex-2
               placeholder="Chọn"
@@ -430,7 +430,7 @@ const FavoriteProductEditor = ({ navigation, route }) => {
               onPress={handleExteriorColorPressed}
             />
           </View>
-          <View row marginT-10 centerV>
+          {/* <View row marginT-10 centerV>
             <InputLabel text="Màu nội thất" />
             <SelectField
               flex-2
@@ -440,7 +440,7 @@ const FavoriteProductEditor = ({ navigation, route }) => {
               placeholder="Chọn"
               onPress={handleInteriorColorPressed}
             />
-          </View>
+          </View> */}
         </View>
       )}
 

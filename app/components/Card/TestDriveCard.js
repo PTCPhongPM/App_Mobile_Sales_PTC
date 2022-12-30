@@ -55,7 +55,7 @@ const TestDriveCard = ({ testDrive, isGeneralMode, onPress }) => {
     TestDriveStateObject.done,
     TestDriveStateObject.incomplete,
   ].includes(testDrive.state);
-  const uri = testDrive.testProduct.model.photo.url;
+  const uri = testDrive.testProduct.product?.photo?.url;
 
   return (
     <Pressable onPress={onPress} style={gStyles.borderB}>
@@ -70,7 +70,10 @@ const TestDriveCard = ({ testDrive, isGeneralMode, onPress }) => {
               ? getCustomerName(testDrive.customer)
               : testDrive.testProduct.model.description}
           </Text>
-
+          <Text subtitle1 marginB-4>
+          <Text body2>MTO: </Text>
+          <Text textBlackMedium body2>{testDrive.testProduct.product?.name}</Text>
+          </Text>
           <View row>
             <Text body2>Thời gian: </Text>
             <Text textBlackMedium body2>

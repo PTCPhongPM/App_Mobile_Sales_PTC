@@ -44,7 +44,7 @@ import {
 } from "../../store/api/delivery";
 
 const DeliveryScheduleDetails = ({ navigation, route }) => {
-  const { deliverySchedule, canRedirect } = route.params;
+  const { deliverySchedule, canRedirect,isNotMe } = route.params;
   const notification = useNotification();
 
   const isDirector = useDirectorRole();
@@ -149,7 +149,7 @@ const DeliveryScheduleDetails = ({ navigation, route }) => {
     if (deliveryDetails.state !== DeliveryStateObject.draft) return;
 
     navigation.setOptions({
-      headerRight: () => (
+      headerRight: () => !isNotMe && (
         <View row>
           <Button link paddingH-8 onPress={handleEdit}>
             <Edit fill={Colors.surface} />
@@ -551,8 +551,7 @@ const DeliveryScheduleDetails = ({ navigation, route }) => {
           >
             <ProductImage
               uri={
-                deliverySchedule.allocation.favoriteProduct.favoriteModel.model
-                  .photo.url
+                deliverySchedule.allocation.favoriteProduct.product.photo?.url
               }
               name={deliverySchedule.allocation.favoriteProduct.product.name}
             />

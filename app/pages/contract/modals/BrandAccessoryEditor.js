@@ -276,6 +276,7 @@ const BrandAccessoryEditor = ({ navigation, route: { params } }) => {
                   <Controller
                     name="amount"
                     control={control}
+                    defaultValue={1}
                     render={({
                       field: { onChange, value },
                       fieldState: { error },

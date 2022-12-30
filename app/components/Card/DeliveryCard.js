@@ -51,7 +51,7 @@ const stateColors = {
 
 const DeliveryCard = ({ schedule, onPress }) => {
   const uri =
-    schedule.allocation.favoriteProduct?.favoriteModel.model.photo.url;
+    schedule.allocation.favoriteProduct?.product?.photo?.url;
 
   const renderChip = useCallback(() => {
     let label, bg;

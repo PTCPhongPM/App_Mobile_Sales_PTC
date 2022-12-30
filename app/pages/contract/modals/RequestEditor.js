@@ -253,7 +253,7 @@ const RequestEditor = ({ navigation, route }) => {
         favoriteProductId: data.favoriteProduct.id,
         policyId: data.policy.id,
         accessoryPackId: data.accessoryPack.id,
-        listedPrice: data.favoriteProduct?.product.listedPrice,
+        listedPrice:data.policy.listedPrice ?? data.favoriteProduct?.product.listedPrice,
         fromDate: toISO(data.fromDate),
         toDate: toISO(data.toDate),
         depositDate: toISO(data.depositDate),

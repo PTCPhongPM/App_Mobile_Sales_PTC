@@ -25,7 +25,7 @@ import { groupDelivery } from "../../helper/utils";
 import { useGetDeliverySchedulesQuery } from "../../store/api/delivery";
 import { selectQuery } from "../../store/slices/delivery";
 
-const DeliverySchedule = ({ navigation }) => {
+const DeliverySchedule = ({ navigation, route }) => {
   useStatusBar("light-content");
 
   const { sortby, orderby, ...otherQuery } = useSelector(selectQuery);
@@ -34,7 +34,7 @@ const DeliverySchedule = ({ navigation }) => {
   const [filter, setFilter] = useState("");
   const toggleSearchMode = useCallback(() => setSearchMode((pre) => !pre), []);
 
-  const { data = [], isFetching, refetch } = useGetDeliverySchedulesQuery();
+  const { data = [], isFetching, refetch } = useGetDeliverySchedulesQuery({accountId:route?.params?.account?.id});
 
   const handleFilter = useCallback(
     () => navigation.navigate("DeliveryFilterSettings"),

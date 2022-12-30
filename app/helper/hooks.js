@@ -17,5 +17,5 @@ export const useStatusBar = (style, animated = true) => {
 
 export const useDirectorRole = () => {
   const account = useSelector(getAccount);
-  return account.role.id === 6;
+  return account.role.id === 2;
 };

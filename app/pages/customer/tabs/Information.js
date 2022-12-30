@@ -19,7 +19,7 @@ import {
 import { useGetCustomerQuery } from "../../../store/api/customer";
 import gStyles from "../../../configs/gStyles";
 
-const Information = ({ customer }) => {
+const Information = ({ customer,isNotMe }) => {
   const { data, isFetching } = useGetCustomerQuery({ code: customer.code });
 
   const additionInformation = useMemo(() => {
@@ -159,7 +159,7 @@ const Information = ({ customer }) => {
       },
       {
         label: "Số điện thoại",
-        value: data.phoneNumber,
+        value: (isNotMe == true || (customer.category=='frozen' || customer.category=='lost')) ? data.phoneNumber.slice(0, -3) + "xxx" : data.phoneNumber,
       },
       {
         label: "Tỉnh/Thành phố",

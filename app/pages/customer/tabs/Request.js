@@ -53,7 +53,7 @@ const RequestSwipeWrapper = ({ children, onDelete }) => (
   </SwipeWrapper>
 );
 
-const Request = ({ customer }) => {
+const Request = ({ customer,isNotMe }) => {
   const navigation = useNavigation();
   const notification = useNotification();
   const sale = customer.sales[0];
@@ -198,7 +198,7 @@ const Request = ({ customer }) => {
   );
 
   const handleRequestsPressed = useCallback(
-    (request) => navigation.navigate("RequestDetails", { request, customer }),
+    (request) => navigation.navigate("RequestDetails", { request, customer,isNotMe }),
     [customer, navigation]
   );
 
@@ -267,7 +267,7 @@ const Request = ({ customer }) => {
         },
       ];
 
-      if (isSaleActive) {
+      if (isSaleActive && !isNotMe) {
         if (
           request.state === RequestStateObject.draft ||
           request.state === RequestStateObject.rejected
@@ -304,7 +304,7 @@ const Request = ({ customer }) => {
       return (
         <SwipeWrapper
           key={request.id}
-          leftActions={leftActions}
+          leftActions={!isNotMe && leftActions}
           rightActions={rightActions}
         >
           <RequestCard
@@ -363,7 +363,7 @@ const Request = ({ customer }) => {
         label="Đề xuất"
         marginT-8
         onPress={
-          Boolean(requests.length) && isSaleActive ? handleCreateRequest : null
+          Boolean(requests.length) && isSaleActive && !isNotMe ? handleCreateRequest : null
         }
       />
 
@@ -390,7 +390,7 @@ const Request = ({ customer }) => {
           <Text body2 textBlackMedium>
             Khách hàng chưa có đề xuất!
           </Text>
-          <Button
+          {!isNotMe && (<Button
             borderRadius={4}
             outline
             outlineColor={Colors.primary900}
@@ -401,6 +401,7 @@ const Request = ({ customer }) => {
               Tạo đề xuất
             </Text>
           </Button>
+          )}
         </View>
       )}
 
@@ -427,7 +428,7 @@ const Request = ({ customer }) => {
           <Text body2 textBlackMedium>
             Khách hàng chưa có báo giá!
           </Text>
-          <Button
+          {!isNotMe && (<Button
             borderRadius={4}
             outline
             outlineColor={Colors.primary900}
@@ -438,6 +439,7 @@ const Request = ({ customer }) => {
               Tạo báo giá
             </Text>
           </Button>
+          )}
         </View>
       )}
 

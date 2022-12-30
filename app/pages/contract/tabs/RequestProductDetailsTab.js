@@ -34,7 +34,7 @@ const RequestProductDetailsTab = ({
         value: request.favoriteProduct.favoriteModel.model.description,
       },
       {
-        label: "Mẫu xe",
+        label: "MTO",
         value: request.favoriteProduct.product.name,
       },
       {
@@ -63,7 +63,7 @@ const RequestProductDetailsTab = ({
       },
       {
         label: "Giá niêm yết",
-        value: currencyFormatter(request.favoriteProduct.product.listedPrice),
+        value: currencyFormatter(request.listedPrice),
       },
       {
         label: "Giảm giá",
@@ -108,7 +108,7 @@ const RequestProductDetailsTab = ({
     ];
 
     // Trả góp
-    if (request.paymentMethod === PaymentMethods[1]) {
+    if (request.paymentMethod === PaymentMethods[2]) {
       result.splice(13, 0, {
         label: "Ngân hàng",
         value: request.bank?.name,
@@ -196,7 +196,7 @@ const RequestProductDetailsTab = ({
       <Headline label="Thông tin xe" />
       <View bg-surface padding-16 style={[gStyles.borderV, gStyles.shadow]}>
         <ProductImage
-          uri={request?.favoriteProduct.favoriteModel.model.photo?.url}
+          uri={request?.favoriteProduct.product.photo?.url}
           name={request?.favoriteProduct.product.name}
         />
         {carInformation.map((e) => (

@@ -137,7 +137,8 @@ export const groupCustomers = (data, sortby, orderby, filter, query) => {
 export const toISO = (date) => new Date(date).toISOString();
 export const formatDate = (date) =>
   date ? dayjs(date).format("DD/MM/YYYY") : "";
-export const formatTime = (time) => dayjs(time, "HH:mm:ss").format("HH:mm");
+export const formatTime = (time) => dayjs(time, "HH:mm").format("HH:mm");
+export const formatTimeLocal = (time) => dayjs(time).format("HH:mm");
 export const formatFilter = (time) =>
   time ? dayjs(time).startOf("d").toISOString() : null;
 

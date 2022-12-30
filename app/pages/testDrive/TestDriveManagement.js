@@ -34,14 +34,14 @@ import { selectQuery, setQuery } from "../../store/slices/testDrive";
 import { showDeleteAlert } from "../../helper/alert";
 import { useStatusBar } from "../../helper/hooks";
 
-const TestDriveManagement = ({ navigation }) => {
+const TestDriveManagement = ({ navigation, route}) => {
   useStatusBar("light-content");
   const dispatch = useDispatch();
   const notification = useNotification();
 
   const { sortby, orderby, ...otherQuery } = useSelector(selectQuery);
 
-  const { data = [], isFetching, refetch } = useGetTestDriveListAllQuery({});
+  const { data = [], isFetching, refetch } = useGetTestDriveListAllQuery({accountId:route?.params?.account?.id});
   const [deleteTestDrive, { isSuccess, isLoading: isDeleting }] =
     useDeleteTestDriveMutation();
 
