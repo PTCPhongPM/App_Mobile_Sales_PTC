@@ -57,7 +57,7 @@ const FavoriteModelCard = ({ item, isBought, onUpdate, onPress, isNotMe }) => (
         model={element.product.name}
         color={element.exteriorColor.name}
         inside={element.interiorColor?.name}
-        image={element.product.photo?.url}
+        image={element.photo?.url}
       />
     ))}
   </View>

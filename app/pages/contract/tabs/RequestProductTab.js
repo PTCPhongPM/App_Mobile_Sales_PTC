@@ -402,7 +402,7 @@ const RequestProductTab = ({ form, navigation, route }) => {
           <View bg-white padding-16 style={[gStyles.borderV, gStyles.shadow]}>
             <TouchableOpacity onPress={handleChooseFavoriteProduct}>
               <ProductImage
-                uri={selectedProduct.product.photo?.url}
+                uri={selectedProduct.photo?.url}
                 name={selectedProduct.product?.name}
               />
             </TouchableOpacity>

@@ -177,7 +177,8 @@ const FavoriteProductEditor = ({ navigation, route }) => {
           productId: data.product.id,
           intendedUse: data.intendedUse,
           buyingType: data.buyingType,
-          exteriorColorId: data.exteriorColor.id,
+          exteriorColorId: data.exteriorColor.color.id,
+          photoId: data.exteriorColor.photoId,
         };
         if (data.interiorColor) {
           _data.interiorColorId = data.interiorColor.id;
@@ -276,7 +277,7 @@ const FavoriteProductEditor = ({ navigation, route }) => {
     setActionConfig({
       key: "exteriorColor",
       items: exteriorColors.map((element) => ({
-        label: element.name,
+        label: element.color.name,
         value: element,
       })),
       onChange: (value) => {
@@ -425,7 +426,7 @@ const FavoriteProductEditor = ({ navigation, route }) => {
               flex-2
               disabled={!productWatch}
               error={Boolean(errors.exteriorColor)}
-              label={exteriorColor?.name}
+              label={exteriorColor?.color?.name}
               placeholder="Chọn"
               onPress={handleExteriorColorPressed}
             />

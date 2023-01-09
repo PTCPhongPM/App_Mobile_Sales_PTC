@@ -196,7 +196,7 @@ const RequestProductDetailsTab = ({
       <Headline label="Thông tin xe" />
       <View bg-surface padding-16 style={[gStyles.borderV, gStyles.shadow]}>
         <ProductImage
-          uri={request?.favoriteProduct.product.photo?.url}
+          uri={request?.favoriteProduct.photo?.url}
           name={request?.favoriteProduct.product.name}
         />
         {carInformation.map((e) => (
