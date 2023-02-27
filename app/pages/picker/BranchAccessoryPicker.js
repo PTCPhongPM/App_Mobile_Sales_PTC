@@ -20,7 +20,7 @@ const BranchAccessoryPicker = ({ navigation, route: { params } }) => {
 
   const [filter, setFilter] = useState("");
 
-  const { data, isFetching, refetch } = useListAllBranchAccessoriesQuery();
+  const { data, isFetching, refetch } = useListAllBranchAccessoriesQuery({filter : productCode});
 
   useEffect(() => {
     navigation.setOptions({

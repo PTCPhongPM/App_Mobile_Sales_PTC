@@ -54,7 +54,7 @@ const schema = yup.object().shape({
 });
 
 const BrandAccessoryEditor = ({ navigation, route: { params } }) => {
-  const { onChange, brandAccessory } = params;
+  const { onChange, brandAccessory,productCode } = params;
   const notification = useNotification();
 
   const [actionConfig, setActionConfig] = useState({});
@@ -198,6 +198,7 @@ const BrandAccessoryEditor = ({ navigation, route: { params } }) => {
 
   const handleAccessoryClicked = useCallback(() => {
     navigation.navigate("BrandAccessoryPicker", {
+      productCode:productCode,
       selected: accessory,
       onSelect: (value) =>
         setValue("accessory", value, { shouldValidate: true }),

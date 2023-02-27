@@ -8,15 +8,17 @@ const accessoryApi = ptcApi.injectEndpoints({
   endpoints(builder) {
     return {
       listAllBrandAccessories: builder.query({
-        query: () => ({
+        query: (params) => ({
           url: "/accessory/brand/list/all",
           method: "GET",
+          params,
         }),
       }),
       listAllBranchAccessories: builder.query({
-        query: () => ({
+        query: (params) => ({
           url: "/accessory/branch/list/all",
           method: "GET",
+          params
         }),
       }),
       listAllAccessoryPacks: builder.query({

@@ -56,7 +56,7 @@ const schema = yup.object().shape({
 });
 
 const BranchAccessoryEditor = ({ navigation, route: { params } }) => {
-  const { onChange, branchAccessory } = params;
+  const { onChange, branchAccessory,productCode  } = params;
   const notification = useNotification();
 
   const [actionConfig, setActionConfig] = useState({});
@@ -200,6 +200,7 @@ const BranchAccessoryEditor = ({ navigation, route: { params } }) => {
 
   const handleAccessoryClicked = useCallback(() => {
     navigation.navigate("BranchAccessoryPicker", {
+      productCode:productCode,
       selected: accessory,
       onSelect: (value) =>
         setValue("accessory", value, { shouldValidate: true }),

@@ -183,6 +183,7 @@ const RequestProductTab = ({ form, navigation, route }) => {
   const handleAddBrandAccessoryPressed = useCallback(
     () =>
       navigation.navigate("BrandAccessoryEditor", {
+        productCode: selectedProduct?.product?.code,
         onChange: (value) =>
           setValue(
             "requestBrandAccessories",
@@ -191,12 +192,13 @@ const RequestProductTab = ({ form, navigation, route }) => {
               : [value]
           ),
       }),
-    [navigation, requestBrandAccessories, setValue]
+    [navigation,selectedProduct?.product?.code, requestBrandAccessories, setValue]
   );
 
   const handleAddBranchAccessoryPressed = useCallback(
     () =>
       navigation.navigate("BranchAccessoryEditor", {
+        productCode: selectedProduct?.product?.code,
         onChange: (value) =>
           setValue(
             "requestBranchAccessories",
@@ -205,7 +207,7 @@ const RequestProductTab = ({ form, navigation, route }) => {
               : [value]
           ),
       }),
-    [navigation, requestBranchAccessories, setValue]
+    [navigation,selectedProduct?.product?.code, requestBranchAccessories, setValue]
   );
 
   const handleAddInsurancePressed = useCallback(

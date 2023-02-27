@@ -19,7 +19,7 @@ const BrandAccessoryPicker = ({ navigation, route: { params } }) => {
 
   const [filter, setFilter] = useState("");
 
-  const { data, isFetching, refetch } = useListAllBrandAccessoriesQuery();
+  const { data = [], isFetching, refetch } = useListAllBrandAccessoriesQuery({filter : productCode});
 
   useEffect(() => {
     navigation.setOptions({
