@@ -17,7 +17,7 @@ import { Close, PersonAdd, Search, Tune } from "../../configs/assets";
 import { groupCustomers } from "../../helper/utils";
 import {
   useGetCustomerListFromCompanyQuery,
-  useReceiveCustomerMutation,
+  useReceiveFromCompanyCustomerMutation,
 } from "../../store/api/customer";
 
 import { selectQuery } from "../../store/slices/customer";
@@ -43,7 +43,7 @@ const FromCompanyCustomers = ({ navigation }) => {
   } = useGetCustomerListFromCompanyQuery();
 
   const [receiveCustomer, { isLoading, isSuccess }] =
-    useReceiveCustomerMutation();
+  useReceiveFromCompanyCustomerMutation();
 
   const loading = isFetching || isLoading;
 

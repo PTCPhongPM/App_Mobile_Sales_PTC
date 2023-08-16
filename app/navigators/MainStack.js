@@ -29,6 +29,7 @@ import RoutineMaintenanceEditor from "../pages/contract/modals/RoutineMaintenanc
 // PickerGroup
 import AllocationProductPicker from "../pages/picker/AllocationProductPicker";
 import ApproachSourcePicker from "../pages/picker/ApproachSourcePicker";
+import ApproachCustomerPicker from "../pages/picker/ApproachCustomerPicker";
 import ApproverPicker from "../pages/picker/ApproverPicker";
 import BankAccountPicker from "../pages/picker/BankAccountPicker";
 import BankPicker from "../pages/picker/BankPicker";
@@ -44,6 +45,7 @@ import PromotionPicker from "../pages/picker/PromotionPicker";
 import ProvincePicker from "../pages/picker/ProvincePicker";
 import SupporterPicker from "../pages/picker/SupporterPicker";
 import AccessoryPackPicker from "../pages/picker/AccessoryPackPicker";
+import ReasonBuyCarPicker from "../pages/picker/ReasonBuyCarPicker";
 
 // TestDriveGroup
 import TestDrivePicker from "../pages/picker/TestDrivePicker";
@@ -323,6 +325,24 @@ const MainStack = () => {
           options={{
             gestureEnabled: false,
             headerTitle: "Chọn nguồn khách hàng",
+            presentation: "modal",
+          }}
+        />
+         <Stack.Screen
+          name="ApproachCustomerPicker"
+          component={ApproachCustomerPicker}
+          options={{
+            gestureEnabled: false,
+            headerTitle: "Chọn phương thức tiếp cận",
+            presentation: "modal",
+          }}
+        />
+        <Stack.Screen
+          name="ReasonBuyCarPicker"
+          component={ReasonBuyCarPicker}
+          options={{
+            gestureEnabled: false,
+            headerTitle: "Chọn lý mua xe honda ",
             presentation: "modal",
           }}
         />

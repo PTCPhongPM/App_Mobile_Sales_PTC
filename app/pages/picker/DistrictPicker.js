@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { FlatList, RefreshControl } from "react-native";
+import { FlatList, RefreshControl,ActivityIndicator } from "react-native";
 
 import { Button, Colors, Incubator, Text, View } from "react-native-ui-lib";
 
@@ -17,7 +17,7 @@ const DistrictPicker = ({ navigation, route: { params } }) => {
 
   const [filter, setFilter] = useState("");
 
-  const { data, isFetching, refetch } = useGetDistrictsQuery({
+  const { data,isLoading,isError, isFetching, refetch } = useGetDistrictsQuery({
     provinceId: params.selected.province.id,
   });
 
@@ -58,7 +58,21 @@ const DistrictPicker = ({ navigation, route: { params } }) => {
     ),
     [handleItemPressed, params.selected.district?.id]
   );
-
+  if (isLoading && list.length === 0) {
+    return (
+      <View flex center>
+        <ActivityIndicator size="large" color={Colors.primary900} />
+      </View>
+    );
+  }
+  if (isError) {
+    // Handle error state
+    return (
+      <View flex center>
+        <Text>Error occurred while fetching data.</Text>
+      </View>
+    );
+  }
   return (
     <View flex bg-surface>
       <View padding-16>
@@ -66,7 +80,7 @@ const DistrictPicker = ({ navigation, route: { params } }) => {
           placeholder="Tìm kiếm"
           value={filter}
           onChangeText={setFilter}
-          editable={!isFetching}
+          editable={!isLoading}
           containerStyle={gStyles.searchContainer}
           style={gStyles.search}
           leadingAccessory={<Search fill={Colors.textBlackMedium} />}
@@ -82,7 +96,7 @@ const DistrictPicker = ({ navigation, route: { params } }) => {
             colors={[Colors.primary900]}
             tintColor={Colors.primary900}
             onRefresh={refetch}
-            refreshing={isFetching}
+            refreshing={isLoading}
           />
         }
       />

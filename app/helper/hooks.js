@@ -19,3 +19,7 @@ export const useDirectorRole = () => {
   const account = useSelector(getAccount);
   return account.role.id === 2;
 };
+export const useSaleAdminRole = () => {
+  const account = useSelector(getAccount);
+  return account.role.id === 4;
+};

@@ -35,6 +35,27 @@ export const Genders = {
   female: "Nữ",
 };
 
+export const CustomerApproachSourcesSCA = [
+  "Quảng cáo Website",
+  "Tìm kiếm thông tin trên mạng (Google)",
+  "Youtube",
+  "Quảng cáo Facebook",
+  "Các bài viết trên báo mạng, thông tin trên diễn đàn",
+  "Quảng cáo ngoài trời",
+  "Quảng cáo trong nhà",
+  "Phim quảng cáo trên truyền hình",
+  "Các sự kiện do HVN tổ chức (Motorshow)",
+  "Sự kiện lái thử xe FTP",
+  "Bạn bè người thân giới thiệu",
+  "Đại Lý",
+  "Quảng cáo trên máy bay",
+  "Quảng cáo wifi tại sân bay, nhà hàng, quán café",
+  "Quảng cáo Zalo",
+  "Quảng cáo YouTube",
+  "Quảng cáo trên các app điện thoại (My Honda+)",
+  "Quảng cáo FTP",
+  "Quảng cáo trên các website tin tức/ ô tô / diễn đàn"
+];
 export const CustomerApproachSources = [
   "DL - Google Ads",
   "DL - Fanpape",
@@ -57,7 +78,12 @@ export const CustomerApproachSources = [
   "Hãng - Từ Online",
   "Hãng - Nguồn khác"
 ];
-
+export const ReasonsToBuySources = [
+  "Xe tiết kiệm xăng",
+  "Thời gian sử dụng lâu dài, ít phát sinh lỗi",
+  "Hậu mãi tốt từ nhà sản xuất Honda",
+  "Mẫu mã phù hợp với thị hiếu người Việt"
+];
 export const CustomerStates = {
   hot: "Hot",
   warm: "Warm",
@@ -494,4 +520,15 @@ export const DeliveryCompletionStates = {
 export const DeliveryConfirmationState = {
   unconfirmed: "Chưa hoàn thành", // Chưa xác nhận
   confirmed: "Xác nhận hoàn thành",
+};
+
+export const TypeOfPurchase = ["Bán theo lô", "Cá nhân", "Doanh nghiệp hợp tác"];
+export const PriceRanges = ["400tr - 500tr", "500tr - 600tr", "600tr - 700tr", "700tr - 800tr", "800tr - 900tr", "900tr - 1000tr", "1000tr - 1100tr", "1200tr - 1300tr", "1300tr - 1400tr", "1400tr - 1500tr"];
+export const RangAges = {
+  "01": "Dưới 20",
+  "02": "Từ 20 - 30 tuổi",
+  "03": "Từ 30 - 40 tuổi",
+  "04": "Từ 40 - 50 tuổi",
+  "05": "Từ 50 - 60 tuổi",
+  "06": "Trên 60"
 };

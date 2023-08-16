@@ -60,8 +60,10 @@ const Activities = ({ customer, isNotMe }) => {
         renderItem={({ item }) => (
           <CareCard
             title={SaleActivities[item.activity]}
+            content={item.content}
             result={item.result}
             time={dayjs(item.date).format("DD/MM")}
+            note={item.note}
           />
         )}
         renderSectionHeader={({ section: { title } }) => (

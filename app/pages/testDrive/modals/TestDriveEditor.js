@@ -58,7 +58,7 @@ const schema = yup.object().shape({
   startingTime: yup.string().required(),
   endingTime: yup.string().required(),
   supporter: yup.object().nullable(true),
-  place: yup.string().required(),
+ // place: yup.string().required(),
   road: yup.string().required(),
   // approver: yup.object().nullable(true),
   note: yup.string().nullable(true),
@@ -311,7 +311,21 @@ const TestDriveEditor = ({ navigation, route: { params } }) => {
       }),
     [navigation, supporter, setValue]
   );
-
+  // Tính toán thời gian kết thúc tự động dựa trên thời gian bắt đầu
+  useEffect(() => {
+    if (startingTime) {
+      const durationInMinutes = 30;
+      const startingTimeDate = new Date(startingTime);
+      const endingTimeDate = new Date(startingTime);
+      endingTimeDate.setMinutes(endingTimeDate.getMinutes() + durationInMinutes);
+      setValue('endingTime', endingTimeDate); // Pass the Date object directly
+    }
+  }, [startingTime, setValue]);
+  useEffect(() => {
+    if (errors && !isEmpty(errors)) {
+      notification.showMessage("Dữ liệu đang thiếu hoặc không hợp lệ", Toast.presets.FAILURE);
+    }
+  }, [errors]);
   return (
     <BasePage loading={loading}>
       <View bg-white padding-16 style={[gStyles.borderV, gStyles.shadow]}>
@@ -467,7 +481,7 @@ const TestDriveEditor = ({ navigation, route: { params } }) => {
           </View>
         </View>
 
-        <View row centerV marginT-10>
+        {/* <View row centerV marginT-10>
           <InputLabel text="Địa điểm" required />
           <SelectField
             flex-2
@@ -476,7 +490,7 @@ const TestDriveEditor = ({ navigation, route: { params } }) => {
             label={getValues("place")}
             onPress={handlePlaceClicked}
           />
-        </View>
+        </View> */}
 
         <View row centerV marginT-10>
           <InputLabel text="Cung đường" required />

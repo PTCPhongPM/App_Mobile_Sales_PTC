@@ -55,6 +55,7 @@ const RequestCustomerDetailsTab = ({ request, refetch, loading }) => {
               label: "Ngày cấp",
               value: holder.issuedDate,
             },
+            
           ]),
       {
         label: "Điện thoại",
@@ -71,6 +72,14 @@ const RequestCustomerDetailsTab = ({ request, refetch, loading }) => {
       {
         label: "Địa chỉ",
         value: holder.address,
+      },
+      {
+        label: "Nguồn thông tin",
+        value: holder.infoSource,
+      },
+      {
+        label: "Lý do mua xe honda",
+        value: holder.reasonBuy?.join(";"),
       },
     ];
   }, [request]);

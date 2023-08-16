@@ -17,7 +17,7 @@ import TextInput from "../../../components/Input/TextInput";
 import { useNotification } from "../../../providers/NotificationProvider";
 import gStyles from "../../../configs/gStyles";
 
-import { BuyingTypes, IntendedUses } from "../../../helper/constants";
+import { BuyingTypes, IntendedUses,TypeOfPurchase, PriceRanges } from "../../../helper/constants";
 
 import { useGetAllModelListQuery } from "../../../store/api/model";
 import {
@@ -38,6 +38,9 @@ const favoriteSchema = yup.object().shape({
   exteriorColor: yup.object().required(),
   intendedUse: yup.string().nullable(true),
   buyingType: yup.string().nullable(true),
+  typeOfPurchase: yup.string().nullable(true),
+  priceRanges: yup.string().nullable(true),
+  approachSource: yup.array().nullable(true)
 });
 
 const otherBrandSchema = yup.object().shape({
@@ -177,8 +180,11 @@ const FavoriteProductEditor = ({ navigation, route }) => {
           productId: data.product.id,
           intendedUse: data.intendedUse,
           buyingType: data.buyingType,
-          exteriorColorId: data.exteriorColor.color.id,
+          typeOfPurchase: data.typeOfPurchase,
+          priceRanges: data.priceRanges,
+          exteriorColorId: data.exteriorColor.color? data.exteriorColor.color.id:data.exteriorColor.id,
           photoId: data.exteriorColor.photoId,
+          approachSource: data.approachSource?.join(','),
         };
         if (data.interiorColor) {
           _data.interiorColorId = data.interiorColor.id;
@@ -306,6 +312,40 @@ const FavoriteProductEditor = ({ navigation, route }) => {
     setActionShown(true);
   }, [interiorColors, setValue]);
 
+  const handleTypeOfPurchasePressed = useCallback(() => {
+    setActionConfig({
+      key: "typeOfPurchase",
+      items: arr2WheelItems(TypeOfPurchase),
+      onChange: (value) => setValue("typeOfPurchase", value),
+      onCancel: () => setValue("typeOfPurchase", null),
+    });
+
+    setActionShown(true);
+  }, [setValue]);
+
+  const handlePriceRangesPressed = useCallback(() => {
+    setActionConfig({
+      key: "priceRanges",
+      items: arr2WheelItems(PriceRanges),
+      onChange: (value) => setValue("priceRanges", value),
+      onCancel: () => setValue("priceRanges", null),
+    });
+
+    setActionShown(true);
+  }, [setValue]);
+
+  const handleApproachSourcePicked = useCallback(
+    () =>
+      navigation.navigate("ApproachCustomerPicker", {
+        selected: getValues("approachSource"),
+        onSelect: (value) => {
+          setValue("approachSource", value, {
+            shouldValidate: true,
+          });
+        },
+      }),
+    [navigation, getValues, setValue]
+  );
   const onDismiss = useCallback(() => setActionShown(false), []);
 
   return (
@@ -399,6 +439,24 @@ const FavoriteProductEditor = ({ navigation, route }) => {
             />
           </View>
           <View row marginT-10 centerV>
+            <InputLabel text="Phương thức tiếp cận" />
+            <SelectField
+              flex-2
+              placeholder="Chọn"
+              label={getValues("approachSource")?.join(" ,")}
+              onPress={handleApproachSourcePicked}
+            />
+          </View>
+          <View row marginT-10 centerV>
+            <InputLabel text="Loại mua" />
+            <SelectField
+              flex-2
+              placeholder="Chọn"
+              label={getValues("typeOfPurchase")}
+              onPress={handleTypeOfPurchasePressed}
+            />
+          </View>
+          <View row marginT-10 centerV>
             <InputLabel text="Loại xe" required />
             <SelectField
               flex-2
@@ -426,9 +484,18 @@ const FavoriteProductEditor = ({ navigation, route }) => {
               flex-2
               disabled={!productWatch}
               error={Boolean(errors.exteriorColor)}
-              label={exteriorColor?.color?.name}
+              label={exteriorColor?.color ? exteriorColor?.color?.name : exteriorColor?.name}
               placeholder="Chọn"
               onPress={handleExteriorColorPressed}
+            />
+          </View>
+          <View row marginT-10 centerV>
+            <InputLabel text="Khoảng giá" />
+            <SelectField
+              flex-2
+              placeholder="Chọn"
+              label={getValues("priceRanges")}
+              onPress={handlePriceRangesPressed}
             />
           </View>
           {/* <View row marginT-10 centerV>

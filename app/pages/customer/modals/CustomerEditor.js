@@ -41,13 +41,15 @@ import {
   Genders,
   MaritalStatus,
   PaymentMethods,
+  RangAges
 } from "../../../helper/constants";
 import {
   useCreateCustomerMutation,
   useUpdateCustomerMutation,
 } from "../../../store/api/customer";
-import { arr2WheelItems, toDate, toISO } from "../../../helper/utils";
+import { arr2WheelItems, toDate, toISO,obj2WheelItems } from "../../../helper/utils";
 import gStyles from "../../../configs/gStyles";
+import isEmpty from "lodash/isEmpty";
 
 const schema = yup.object().shape({
   type: yup.string().required(),
@@ -70,14 +72,15 @@ const schema = yup.object().shape({
     .matches(/^[0-9]+$/)
     .min(10)
     .max(10),
-  province: yup.object().required(),
-  district: yup.object().required(),
-  address: yup.string().required(),
+  province: yup.object(),//cần ràng buộc thêm .required()
+  district: yup.object(),
+  address: yup.string().nullable(true),
   state: yup.string().required(),
   expectedSigningDate: yup.string().nullable(true),
   paymentMethod: yup.string().required(),
   role: yup.string().nullable(true),
 
+  rangeAge: yup.string().nullable(true),
   hasBroker: yup.boolean(),
   brokerInfo: yup.object().when("hasBroker", {
     is: true,
@@ -134,7 +137,7 @@ const defaultValues = {
   type: "personal",
   civility: "mr",
   hasBroker: false,
-  customerInfo: { gender: "male" },
+  customerInfo: { gender: "male" }
 };
 
 const CustomerEditor = ({ navigation, route: { params } }) => {
@@ -184,9 +187,13 @@ const CustomerEditor = ({ navigation, route: { params } }) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess, navigation, reset]);
-
+  useEffect(() => {
+    if (errors && !isEmpty(errors)) {
+      notification.showMessage("Dữ liệu đang thiếu hoặc không hợp lệ", Toast.presets.FAILURE);
+    }
+  }, [errors]);
   const onSubmit = useCallback(
-    (data) => {
+   async (data) => {
       data.provinceId = data.province?.id;
       data.districtId = data.district?.id;
 
@@ -210,7 +217,14 @@ const CustomerEditor = ({ navigation, route: { params } }) => {
       if (customer) {
         updateCustomer(data);
       } else {
-        createCustomer(data);
+       const result= await createCustomer(data);
+        if(!isLoading && result.data)
+        {
+          navigation.navigate('CustomerDetails', {
+            selectedTabIndex: 2, // Specify the tab screen name
+            customer: result.data , // Pass additional parameters if needed
+          });
+        }
       }
     },
     [createCustomer, customer, updateCustomer]
@@ -222,6 +236,7 @@ const CustomerEditor = ({ navigation, route: { params } }) => {
   const source = watch("source");
   const hasBroker = watch("hasBroker");
   const brokerBank = watch("brokerInfo.bank");
+  const rangeAge = watch("rangeAge");
 
   const isPersonal = useMemo(() => type === "personal", [type]);
 
@@ -441,6 +456,19 @@ const CustomerEditor = ({ navigation, route: { params } }) => {
     [brokerBank, navigation, setValue]
   );
 
+  const handleRangAgesPressed = useCallback(() => {
+    setActionConfig({
+      key: "rangeAge",
+      items: obj2WheelItems(RangAges),
+      onChange: (value) => {
+        setValue("rangeAge", value, {
+          shouldValidate: true,
+        });
+      }
+    });
+
+    setActionShown(true);
+  }, [setValue]);
   const renderBrokerSection = useCallback(
     () => (
       <View padding-16 paddingB-16 bg-surface>
@@ -1055,6 +1083,15 @@ const CustomerEditor = ({ navigation, route: { params } }) => {
           </View>
         </View>
         <View row marginT-10 centerV>
+              <InputLabel text="Độ tuổi" />
+              <SelectField
+                flex-2
+                placeholder="Chọn"
+                label={RangAges[rangeAge]}
+                onPress={handleRangAgesPressed}
+              />
+            </View>
+        <View row marginT-10 centerV>
           <InputLabel text="Ghi chú" />
           <View flex-2>
             <Controller
@@ -1118,28 +1155,28 @@ const CustomerEditor = ({ navigation, route: { params } }) => {
           </View>
         </View>
         <View row marginT-10 centerV>
-          <InputLabel text="Tỉnh/Thành phố" required />
+          <InputLabel text="Tỉnh/Thành phố"/>
           <SelectField
             flex-2
             placeholder="Chọn"
-            error={Boolean(errors.province)}
+           // error={Boolean(errors.province)}
             label={province?.name}
             onPress={handleProvincePicked}
           />
         </View>
         <View row marginT-10 centerV>
-          <InputLabel text="Quận/Huyện" required />
+          <InputLabel text="Quận/Huyện"/>
           <SelectField
             flex-2
             placeholder="Chọn"
             label={district?.name}
             disabled={!province || !province?.id}
-            error={Boolean(errors.district)}
+            //error={Boolean(errors.district)}
             onPress={handleDistrictPicked}
           />
         </View>
         <View row marginT-10 centerV>
-          <InputLabel text="Địa chỉ chi tiết" required />
+          <InputLabel text="Địa chỉ chi tiết"/>
           <View flex-2>
             <Controller
               name="address"
@@ -1152,7 +1189,7 @@ const CustomerEditor = ({ navigation, route: { params } }) => {
                   placeholder="Nhập địa chỉ"
                   value={value}
                   error={error}
-                  isError={Boolean(error)}
+                  //isError={Boolean(error)}
                   onChangeText={onChange}
                 />
               )}

@@ -46,7 +46,7 @@ import {
   checkSaleDone,
 } from "../../helper/utils";
 import { CustomerStates } from "../../helper/constants";
-import { useDirectorRole } from "../../helper/hooks";
+import { useDirectorRole, useSaleAdminRole } from "../../helper/hooks";
 
 // tabs
 import CustomerCare from "./tabs/CustomerCare";
@@ -108,6 +108,7 @@ const CustomerDetails = ({ navigation, route }) => {
   );
 
   const isDirector = useDirectorRole();
+  const isSaleAdmin = useSaleAdminRole();
 
   const handleEditPressed = useCallback(
     () => navigation.navigate("CustomerEditor", { customer: customerDetails }),
@@ -157,7 +158,13 @@ const CustomerDetails = ({ navigation, route }) => {
       }),
     [customerDetails, navigation]
   );
-
+  useEffect(() => {
+    // Lấy giá trị selectedTabIndex từ params nếu có
+    const { selectedTabIndex } = route.params || {};
+    if (selectedTabIndex !== undefined) {
+      setSelectedTab(selectedTabIndex);
+    }
+  }, [route.params]);
   const contextActions = useMemo(() => {
     let result = [];
     if (isSaleActive) {
@@ -327,7 +334,7 @@ const CustomerDetails = ({ navigation, route }) => {
               )}
             </View>
           </View>
-          {isDirector && (
+          {(isDirector ||  isSaleAdmin)&& (
             <Avatar
               name={customerDetails.saler?.name}
               source={{

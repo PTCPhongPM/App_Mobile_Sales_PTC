@@ -99,6 +99,14 @@ const FavoriteProductDetails = ({ navigation, route }) => {
         value: productDetails.buyingType,
       },
       {
+        label: "Phương thức tiếp cận",
+        value: productDetails.approachSource?.join(','),
+      },
+      {
+        label: "Loại mua",
+        value: productDetails.typeOfPurchase,
+      },
+      {
         label: "Loại xe",
         value: productDetails.favoriteModel?.model.description,
       },
@@ -111,9 +119,13 @@ const FavoriteProductDetails = ({ navigation, route }) => {
         value: productDetails.exteriorColor.name,
       },
       {
-        label: "Màu nội thất",
-        value: productDetails.interiorColor?.name,
+        label: "Khoảng giá",
+        value: productDetails.priceRanges,
       },
+      // {
+      //   label: "Màu nội thất",
+      //   value: productDetails.interiorColor?.name,
+      // },
     ],
     [
       productDetails.buyingType,
@@ -122,6 +134,9 @@ const FavoriteProductDetails = ({ navigation, route }) => {
       productDetails.intendedUse,
       productDetails.interiorColor?.name,
       productDetails.product.name,
+      productDetails.approachSource,
+      productDetails.typeOfPurchase,
+      productDetails.priceRanges,
     ]
   );
 

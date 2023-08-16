@@ -19,9 +19,16 @@ const accountApi = ptcApi.injectEndpoints({
         method: "GET",
       }),
     }),
+    getManagerAccounts: builder.query({
+      query: () => ({
+        url: "/account/list/managerAccounts",
+        //url: "/account/list/supporter",
+        method: "GET",
+      }),
+    }),
     getSupporter: builder.query({
       query: () => ({
-        url: "/account/list/supporter",
+        url: "/account/list/managerAccounts",
         method: "GET",
       }),
     }),
@@ -50,6 +57,7 @@ export const {
   useGetAccountQuery,
   useGetApproverQuery,
   useGetSupporterQuery,
+  useGetManagerAccountsQuery,
   useUpdateAccountMutation,
   useUpdatePasswordMutation,
 } = accountApi;

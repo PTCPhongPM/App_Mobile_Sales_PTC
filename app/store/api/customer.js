@@ -123,6 +123,17 @@ const customerApi = ptcApi.injectEndpoints({
         { type: "Customer", id: "List" },
       ],
     }),
+    receiveFromCompanyCustomer: builder.mutation({
+      query: (data) => ({
+        url: "/customer/receiveFromCompany",
+        method: "POST",
+        data,
+      }),
+      invalidatesTags: (_, __, { code }) => [
+        { type: "Customer", id: code },
+        { type: "Customer", id: "List" },
+      ],
+    }),
   }),
 
   overrideExisting: false,
@@ -141,4 +152,5 @@ export const {
   useGetCustomerListBoughtQuery,
 
   useReceiveCustomerMutation,
+  useReceiveFromCompanyCustomerMutation,
 } = customerApi;

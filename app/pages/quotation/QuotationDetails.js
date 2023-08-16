@@ -171,7 +171,7 @@ const QuotationDetails = ({ navigation, route: { params } }) => {
       },
       {
         label: "Tỉnh",
-        value: data.province.name,
+        value: data.province?.name,
       },
       {
         label: "Mục đích sử dụng",

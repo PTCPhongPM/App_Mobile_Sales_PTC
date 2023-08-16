@@ -44,6 +44,8 @@ const schema = yup.object().shape({
         citizenIdentity: yup.string().required(),
         issuedDate: yup.string().required(),
         issuedPlace: yup.string().required(),
+        infoSource: yup.string().nullable(true),
+        reasonBuy: yup.array().nullable(true)
       }),
     })
     .when("holderType", {
@@ -114,6 +116,7 @@ const schema = yup.object().shape({
   requestPromotions: yup.array().nullable(true),
 
   requestBroker: yup.object().nullable(true),
+  
 });
 
 const tabs = [
@@ -178,6 +181,7 @@ const RequestEditor = ({ navigation, route }) => {
               taxCode: customer.customerInfo.taxCode,
               ownerName: customer.customerInfo.ownerName,
               ownerTitle: customer.customerInfo.ownerTitle,
+              reasonBuy: customer.customerInfo.reasonBuy?.split(';'),
             },
             contactInfo: {
               isHolder: true,
@@ -222,6 +226,7 @@ const RequestEditor = ({ navigation, route }) => {
 
   useEffect(() => {
     if (errors && !isEmpty(errors)) {
+      notification.showMessage("Dữ liệu đang thiếu hoặc không hợp lệ", Toast.presets.FAILURE);
       const inCustomerTab = keyCustomerTab1.some((key) => errors[key]);
 
       if (inCustomerTab) {
@@ -238,6 +243,7 @@ const RequestEditor = ({ navigation, route }) => {
         ...data,
         saleId: customer.sales[0].id,
         // customer tab
+        ...data.holderInfo.reasonBuy=data.holderInfo.reasonBuy?.join(';'),
         holderInfo: {
           ...data.holderInfo,
           provinceId: data.contactInfo.province?.id,

@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
-import { FlatList, RefreshControl } from "react-native";
+import { FlatList, RefreshControl, ActivityIndicator } from "react-native";
 import { Button, Colors, Incubator, Text, View } from "react-native-ui-lib";
 
 import { removeAccents } from "../../helper/utils";
@@ -18,7 +18,7 @@ const ProvincePicker = ({ navigation, route: { params } }) => {
 
   const [filter, setFilter] = useState("");
 
-  const { data, isFetching, refetch } = useGetProvincesQuery();
+  const { data, isLoading,isFetching, isError, refetch } = useGetProvincesQuery();
 
   useEffect(() => {
     navigation.setOptions({
@@ -57,7 +57,21 @@ const ProvincePicker = ({ navigation, route: { params } }) => {
     ),
     [handleItemPressed, params.selected?.id]
   );
-
+  if (isLoading && list.length === 0) {
+    return (
+      <View flex center>
+        <ActivityIndicator size="large" color={Colors.primary900} />
+      </View>
+    );
+  }
+  if (isError) {
+    // Handle error state
+    return (
+      <View flex center>
+        <Text>Error occurred while fetching data.</Text>
+      </View>
+    );
+  }
   return (
     <View bg-surface flex>
       <View padding-16>
@@ -65,7 +79,7 @@ const ProvincePicker = ({ navigation, route: { params } }) => {
           placeholder="Tìm kiếm"
           value={filter}
           onChangeText={setFilter}
-          editable={!isFetching}
+          editable={!isLoading}
           containerStyle={gStyles.searchContainer}
           style={gStyles.search}
           leadingAccessory={<Search fill={Colors.textBlackMedium} />}
@@ -80,7 +94,7 @@ const ProvincePicker = ({ navigation, route: { params } }) => {
             colors={[Colors.primary900]}
             tintColor={Colors.primary900}
             onRefresh={refetch}
-            refreshing={isFetching}
+            refreshing={isLoading}
           />
         }
       />

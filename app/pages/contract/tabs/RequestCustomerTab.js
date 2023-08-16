@@ -30,6 +30,7 @@ const RequestCustomerTab = ({ form, navigation }) => {
     formState: { errors },
     setValue,
     watch,
+    getValues,
   } = form;
 
   const holderInfo = watch("holderInfo");
@@ -247,7 +248,30 @@ const RequestCustomerTab = ({ form, navigation }) => {
       setValue,
     ]
   );
-
+  const handleApproachSCASourcePicked = useCallback(
+    () =>
+      navigation.navigate("ApproachSourcePicker", {
+        selected: getValues("holderInfo.infoSource"),
+        onSelect: (value) => {
+          setValue("holderInfo.infoSource", value, {
+            shouldValidate: true,
+          });
+        },
+      }),
+    [navigation, getValues, setValue]
+  );
+  const handleReasonBuySCASourcePicked = useCallback(
+    () =>
+      navigation.navigate("ReasonBuyCarPicker", {
+        selected: getValues("holderInfo.reasonBuy"),
+        onSelect: (value) => {
+          setValue("holderInfo.reasonBuy", value, {
+            shouldValidate: true,
+          });
+        },
+      }),
+    [navigation, getValues, setValue]
+  );
   return (
     <ScrollView
       contentContainerStyle={[gStyles.basePage, { minHeight: height }]}
@@ -403,6 +427,26 @@ const RequestCustomerTab = ({ form, navigation }) => {
                   )}
                 />
               </View>
+            </View>
+            <View row marginT-10 centerV>
+              <InputLabel text="Nguồn thông tin" />
+              <SelectField
+                flex-2
+                placeholder="Chọn"
+                label={getValues("holderInfo.infoSource")}
+                error={Boolean(errors.holderInfo?.infoSource)}
+                onPress={handleApproachSCASourcePicked}
+              />
+            </View>
+            <View row marginT-10 centerV>
+              <InputLabel text="Lý do mua xe honda" />
+              <SelectField
+                flex-2
+                placeholder="Chọn"
+                label={Array.isArray(getValues("holderInfo.reasonBuy"))?getValues("holderInfo.reasonBuy")?.join(";") : getValues("holderInfo.reasonBuy")}
+                error={Boolean(errors.holderInfo?.reasonBuy)}
+                onPress={handleReasonBuySCASourcePicked}
+              />
             </View>
           </>
         )}

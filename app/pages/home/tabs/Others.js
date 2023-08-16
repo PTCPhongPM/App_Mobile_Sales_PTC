@@ -42,7 +42,9 @@ import { getAccount, setAccount } from "../../../store/slices/account";
 import OthersItem from "../../../components/OthersItem";
 import gStyles from "../../../configs/gStyles";
 import ptcApi from "../../../store/api";
-
+import {
+  resetQuery
+} from "../../../store/slices/customer";
 const Others = ({ navigation }) => {
   useStatusBar("light-content");
   const isDirector = useDirectorRole();
@@ -53,6 +55,7 @@ const Others = ({ navigation }) => {
 
   const handleLogout = useCallback(() => {
     saveAccessToken();
+    dispatch(resetQuery());// reset filter customer setting
     dispatch(ptcApi.util.resetApiState());
 
     navigation.replace("AuthStack", { screen: "Login" });

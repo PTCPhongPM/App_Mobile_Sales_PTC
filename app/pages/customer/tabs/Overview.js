@@ -205,6 +205,7 @@ const Overview = ({ customer, changeTab, isNotMe }) => {
                 <CareCard
                   key={item.id}
                   title={SaleActivities[item.activity]}
+                  content={item.content}
                   result={item.result}
                   time={dayjs(item.date).format("DD/MM")}
                 />

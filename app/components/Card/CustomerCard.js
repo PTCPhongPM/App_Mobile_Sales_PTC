@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React, { memo, useMemo } from "react";
 
-import { Pressable, StyleSheet } from "react-native";
+import { Pressable, StyleSheet, Dimensions } from "react-native";
 
 import { Colors, Text, View } from "react-native-ui-lib";
 import CustomerStateChip from "../Chip/CustomerStateChip";
@@ -49,6 +49,9 @@ const CustomerCard = ({ customer, onPress }) => {
     return sale.activities[0].result;
   }, [sale]);
 
+  const screenWidth = Dimensions.get('window').width;
+  const maxWidth = screenWidth * 0.8;
+
   return (
     <Pressable onPress={onPress} style={[gStyles.borderV, gStyles.shadow]}>
       <View paddingH-16 paddingV-10 bg-surface>
@@ -79,6 +82,26 @@ const CustomerCard = ({ customer, onPress }) => {
             <NormalChip marginH-4 key={tag} label={tag} />
           ))}
         </View>
+        <View row spread marginT-4 style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+          <Text numberOfLines={1} ellipsizeMode="tail" style={{ maxWidth }}
+            flex
+            body2
+            textBlackMedium
+            highlightString="Quan tâm"
+            highlightStyle={styles.highlightText}
+          >
+            Quan tâm: {favoriteModels}
+          </Text>
+          <Text numberOfLines={1} ellipsizeMode="tail" style={{ maxWidth }}
+            flex
+            body2
+            textBlackMedium
+            highlightString="NVBH"
+            highlightStyle={styles.highlightText}>
+            NVBH: {customer.saler.name}
+          </Text>
+
+        </View>
         <View row spread marginT-4>
           <Text
             flex
@@ -97,17 +120,6 @@ const CustomerCard = ({ customer, onPress }) => {
             highlightStyle={styles.highlightText}
           >
             Kết quả: {result}
-          </Text>
-        </View>
-        <View row spread marginT-4>
-          <Text
-            flex
-            body2
-            textBlackMedium
-            highlightString="Xe quan tâm"
-            highlightStyle={styles.highlightText}
-          >
-            Xe quan tâm: {favoriteModels}
           </Text>
         </View>
       </View>

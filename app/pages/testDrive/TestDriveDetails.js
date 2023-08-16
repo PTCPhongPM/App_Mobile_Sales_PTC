@@ -40,6 +40,7 @@ import {
 import gStyles from "../../configs/gStyles";
 import { TestDriveStateObject, TestDriveStates } from "../../helper/constants";
 import { useDirectorRole } from "../../helper/hooks";
+import { downloadPDF } from "../../helper/file";
 
 const styles = StyleSheet.create({
   br2: {
@@ -60,6 +61,7 @@ const TestDriveDetails = ({ navigation, route: { params } }) => {
   });
 
   const testDriveDetails = useMemo(() => data || testDrive, [data, testDrive]);
+  const [isExporting, setIsExporting] = useState(false);
 
   const [deleteTestDrive, { isSuccess, isLoading }] =
     useDeleteTestDriveMutation();
@@ -74,7 +76,7 @@ const TestDriveDetails = ({ navigation, route: { params } }) => {
     { isSuccess: isApproveSuccess, isLoading: isApproving },
   ] = useApproveTestDriveMutation();
 
-  const loading = isLoading || isFetching || isSending || isApproving;
+  const loading = isLoading || isFetching || isSending || isApproving || isExporting;
 
   const handleDeleteTestDrive = useCallback(
     () =>
@@ -153,9 +155,16 @@ const TestDriveDetails = ({ navigation, route: { params } }) => {
           }),
       },
       {
-        title: "In phiếu",
+        title: "Xuất PDF",
         // todo
-        onPress: () => {},
+        onPress: async () => {
+          setIsExporting(true);
+          await downloadPDF("/testdrive/pdf", "testdrive", {
+            id: testDriveDetails.id,
+            template: 'testdrive',
+          });
+          setIsExporting(false);
+        },
       },
       {
         title: "Xóa lịch",
@@ -195,7 +204,14 @@ const TestDriveDetails = ({ navigation, route: { params } }) => {
     },
     [rejectContextActions]
   );
-
+  const exportPdf=async ()=>{
+    setIsExporting(true);
+          await downloadPDF("/testdrive/pdf", "testdrive", {
+            id: testDriveDetails.id,
+            template: 'testdrive',
+          });
+          setIsExporting(false);
+  }
   useEffect(() => {
     if (testDrive.state === TestDriveStateObject.draft) {
       navigation.setOptions({
@@ -248,7 +264,7 @@ const TestDriveDetails = ({ navigation, route: { params } }) => {
     ) {
       navigation.setOptions({
         headerRight: () => (
-          <Button link disabled={loading} paddingR-16 onPress={() => {}}>
+          <Button link disabled={loading} paddingR-16 onPress={exportPdf}>
             <Print fill={Colors.white} />
           </Button>
         ),
@@ -287,10 +303,10 @@ const TestDriveDetails = ({ navigation, route: { params } }) => {
         label: "Người hỗ trợ",
         value: testDriveDetails.supporter?.name,
       },
-      {
-        label: "Địa điểm",
-        value: testDriveDetails.place,
-      },
+      // {
+      //   label: "Địa điểm",
+      //   value: testDriveDetails.place,
+      // },
       {
         label: "Cung đường",
         value: testDriveDetails.road,
@@ -406,7 +422,7 @@ const TestDriveDetails = ({ navigation, route: { params } }) => {
           <View center paddingV-8 row>
             <ProductImage
               uri={testDriveDetails.testProduct?.product?.photo?.url}
-              name={testDriveDetails.testProduct?.product?.description}
+              name={testDriveDetails.testProduct?.model?.description + '-' + testDriveDetails.testProduct?.product?.name}
             />
           </View>
           <View bg-surface paddingH-16 paddingT-8>

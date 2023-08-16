@@ -14,6 +14,7 @@ import {
   CustomerTypes,
   Genders,
   MaritalStatus,
+  RangAges
 } from "../../../helper/constants";
 
 import { useGetCustomerQuery } from "../../../store/api/customer";
@@ -152,6 +153,10 @@ const Information = ({ customer,isNotMe }) => {
       {
         label: "Tên khách hàng",
         value: getCustomerName(data),
+      },
+      {
+        label: "Độ tuổi",
+        value: RangAges[data?.rangeAge],
       },
       {
         label: "Ghi chú",

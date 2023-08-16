@@ -19,6 +19,17 @@ export const saveAccessToken = (token) => {
   setToken(token);
 };
 
+export const getUserLoged= () =>
+  AsyncStorage.getItem('code');
+
+export const saveUserLoged = (user) => {
+  if (user) {
+    AsyncStorage.setItem('code', user.code);
+  } else {
+    AsyncStorage.removeItem('code');
+  }
+  
+};
 export const isAuthTokenValid = (accessToken) => {
   if (!accessToken) {
     return false;

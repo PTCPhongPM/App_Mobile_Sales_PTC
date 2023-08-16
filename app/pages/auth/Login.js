@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState ,useEffect} from "react";
 import PropTypes from "prop-types";
 
 import { useDispatch } from "react-redux";
@@ -12,7 +12,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 import AuthTextInput from "../../components/Input/AuthTextInput";
 
-import { saveAccessToken } from "../../helper/auth";
+import { saveAccessToken,saveUserLoged,getUserLoged } from "../../helper/auth";
 import { setAccount } from "../../store/slices/account";
 import { useLoginMutation } from "../../store/api/auth";
 
@@ -36,14 +36,23 @@ const Login = ({ navigation }) => {
     control,
     handleSubmit,
     formState: { errors },
+    setValue
   } = useForm({
     resolver: yupResolver(schema),
-    defaultValues: {
-      // code: "head-sale",
-      code: "director",
-      password: "123456",
-    },
+    defaultValues: {}
+    //{
+      // code: "director",
+      // password: "123456",
+    //},
   });
+  useEffect(() => {
+    const setDefaultValues = async () => {
+      const userLoged = await getUserLoged();
+      setValue('code', userLoged);
+    };
+
+    setDefaultValues();
+  }, [setValue]);
 
   const [login, { isLoading }] = useLoginMutation();
 
@@ -61,6 +70,7 @@ const Login = ({ navigation }) => {
         })
       );
       saveAccessToken(_data.token);
+      saveUserLoged(data);
       navigation.replace("MainStack");
     },
     [dispatch, login, navigation]

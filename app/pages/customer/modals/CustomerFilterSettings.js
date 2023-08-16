@@ -41,12 +41,28 @@ import {
   obj2WheelItems,
   toDate,
 } from "../../../helper/utils";
+import { useGetManagerAccountsQuery } from "../../../store/api/account";
 
 const CustomerFilterSettings = ({ navigation, route: { params } }) => {
   const isBoughtCustomer = params?.isBoughtCustomer;
   const dispatch = useDispatch();
 
   const query = useSelector(selectQuery);
+  const [_customerScopes, setCustomerScopes] = useState(obj2WheelItems(CustomerScopes));
+  const [scopeDataChanged, setScopeDataChanged] = useState(false); // Biến state để theo dõi thay đổi của _customerScopes
+  const { data = [], isFetching, refetch } = useGetManagerAccountsQuery();
+
+  // Sử dụng useEffect để theo dõi sự thay đổi của data
+  useEffect(() => {
+    if (data.length > 0) {
+      const listAccounts = data.map((item) => ({
+        value: item.id.toString(),
+        label: item.name,
+      }));
+      setCustomerScopes((prevScopes) => [...prevScopes, ...listAccounts]);
+      setScopeDataChanged(true); // Cập nhật biến state khi _customerScopes thay đổi
+    }
+  }, [data]);
 
   const handleBack = useCallback(() => navigation.goBack(), [navigation]);
   const handleSave = useCallback(
@@ -114,14 +130,14 @@ const CustomerFilterSettings = ({ navigation, route: { params } }) => {
   const handleScopeClicked = useCallback(() => {
     setActionConfig({
       key: "scope",
-      items: obj2WheelItems(CustomerScopes),
-      onChange: (value) => setValue("scope", value, { shouldValidate: true }),
+      items: _customerScopes,
+      onChange: (value) =>
+        setValue("scope", value, { shouldValidate: true }),
       onCancel: null,
     });
 
     setActionShown(true);
-  }, [setValue]);
-
+  }, [setValue, _customerScopes]);
   const handleProcessClicked = useCallback(() => {
     setActionConfig({
       key: "process",
@@ -163,7 +179,7 @@ const CustomerFilterSettings = ({ navigation, route: { params } }) => {
   }, [dispatch, query, reset]);
 
   return (
-    <BasePage>
+    <BasePage loading={isFetching}>
       <Headline label="Phân nhóm" marginT-8 />
       <View bg-white padding-16 style={[gStyles.borderV, gStyles.shadow]}>
         <View row centerV>
@@ -187,12 +203,22 @@ const CustomerFilterSettings = ({ navigation, route: { params } }) => {
       <Headline label="Nâng cao" />
       <View bg-white padding-16 style={[gStyles.borderV, gStyles.shadow]}>
         <View row centerV>
-          <InputLabel text="Loại khách hàng" />
-          <SelectField
-            flex-2
-            label={CustomerScopes[getValues("scope")]}
-            onPress={handleScopeClicked}
-          />
+          <InputLabel text="Khách hàng" />
+          {scopeDataChanged ? ( // Kiểm tra nếu dữ liệu _customerScopes đã thay đổi
+            <SelectField
+              flex-2
+              label={_customerScopes?.find(
+                (option) => option?.value === getValues("scope")
+              )?.label}
+              onPress={handleScopeClicked}
+            />
+          ) : (
+            <SelectField
+              flex-2
+              label={CustomerScopes[getValues("scope")]}
+              onPress={handleScopeClicked}
+            />
+          )}
         </View>
         <View row marginT-10 centerV>
           <InputLabel text="Quy trình" />
