@@ -29,12 +29,14 @@
       "size" : "29x29"
     },
     {
+      "filename" : "Icon-76.png",
       "idiom" : "universal",
       "platform" : "ios",
       "scale" : "2x",
       "size" : "38x38"
     },
     {
+      "filename" : "114.png",
       "idiom" : "universal",
       "platform" : "ios",
       "scale" : "3x",
@@ -87,6 +89,7 @@
       "size" : "68x68"
     },
     {
+      "filename" : "Icon-App-76x76@2x.png",
       "idiom" : "universal",
       "platform" : "ios",
       "scale" : "2x",
