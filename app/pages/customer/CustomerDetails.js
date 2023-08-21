@@ -145,11 +145,21 @@ const CustomerDetails = ({ navigation, route }) => {
     [customerDetails.code, updateCustomer]
   );
 
+  // const handleReceiveCustomer = useCallback(
+  //   () => receiveCustomer({ code: customerDetails.code }),
+  //   [customerDetails.code, receiveCustomer]
+  // );
   const handleReceiveCustomer = useCallback(
-    () => receiveCustomer({ code: customerDetails.code }),
-    [customerDetails.code, receiveCustomer]
+    async () => {
+      const result = await receiveCustomer({ code: customerDetails.code });
+      // Now you can use the 'result' for further processing
+      navigation.navigate('CustomerDetails', {
+        selectedTabIndex: 2, // Specify the tab screen name
+        customer: result.data , // Pass additional parameters if needed
+      });
+    },
+    [customerDetails.code,receiveCustomer]
   );
-
   const handleLostFrozenUpdate = useCallback(
     (state) =>
       navigation.navigate("LostFrozenUpdate", {

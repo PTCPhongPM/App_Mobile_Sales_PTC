@@ -13,7 +13,7 @@ import {
 
 import { TestDriveStateObject } from "../../helper/constants";
 import gStyles from "../../configs/gStyles";
-
+import dayjs from "dayjs";
 const styles = StyleSheet.create({
   blue: {
     backgroundColor: colors.stateBlueLight,
@@ -41,7 +41,7 @@ const TestDriveScheduleCard = ({ testDrive, onPress }) => {
 
     if (testDrive.state === TestDriveStateObject.approved) {
       if (
-        checkTaskExpired(false, testDrive.drivingDate, testDrive.endingTime)
+        checkTaskExpired(false, testDrive.drivingDate, testDrive.endingTime + ":00")
       ) {
         return styles.red;
       } else {

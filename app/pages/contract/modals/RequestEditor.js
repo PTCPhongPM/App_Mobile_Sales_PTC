@@ -104,6 +104,7 @@ const schema = yup.object().shape({
   buyingType: yup.string().required(),
   registration: yup.string().required(),
   deliveryPlace: yup.string().required(),
+  accessoryPack: yup.object().required(),
 
   presents: yup.string().nullable(true),
   note: yup.string().nullable(true),

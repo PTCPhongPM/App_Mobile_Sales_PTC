@@ -307,7 +307,7 @@ const RequestCustomerTab = ({ form, navigation }) => {
           <SelectField
             flex-2
             placeholder="Chọn"
-            error={Boolean(errors.province)}
+            error={Boolean(errors.holderInfo?.province)}
             label={holderProvince?.name}
             onPress={handleHolderProvincePicked}
           />
@@ -319,7 +319,7 @@ const RequestCustomerTab = ({ form, navigation }) => {
             placeholder="Chọn"
             label={holderDistrict?.name}
             disabled={!holderProvince || !holderProvince?.id}
-            error={Boolean(errors.district)}
+            error={Boolean(errors.holderInfo?.district)}
             onPress={handleHolderDistrictPicked}
           />
         </View>

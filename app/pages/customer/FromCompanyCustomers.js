@@ -113,11 +113,21 @@ const FromCompanyCustomers = ({ navigation }) => {
     [data, filter, orderby, otherQuery, sortby]
   );
 
+  // const handleReceiveCustomer = useCallback(
+  //   ({ code }) => receiveCustomer({ code }),
+  //   [receiveCustomer]
+  // );
   const handleReceiveCustomer = useCallback(
-    ({ code }) => receiveCustomer({ code }),
+    async ({ code }) => {
+      const result = await receiveCustomer({ code });
+      // Now you can use the 'result' for further processing
+      navigation.navigate('CustomerDetails', {
+        selectedTabIndex: 2, // Specify the tab screen name
+        customer: result.data , // Pass additional parameters if needed
+      });
+    },
     [receiveCustomer]
   );
-
   return (
     <BasePage hasScroll={false}>
       <SectionList
