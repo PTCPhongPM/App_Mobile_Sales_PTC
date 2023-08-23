@@ -41,7 +41,8 @@ const Contract = ({ customer, changeTab, isNotMe }) => {
   const toRequestTab = useCallback(() => changeTab(5), [changeTab]);
 
   const dispatch = useDispatch();
-  const { state } = useSelector(selectQuery);
+  //const { state } = useSelector(selectQuery);
+  const [state, setState] = useState('');
 
   const [actionSheetShown, setActionSheetShown] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
@@ -253,6 +254,7 @@ const Contract = ({ customer, changeTab, isNotMe }) => {
         buttons={buttons}
         selected={state}
         onPress={(id) => {
+          setState(id);
           dispatch(setQuery({ state: id }));
           refetch();
         }}

@@ -36,8 +36,8 @@ const Overview = ({ customer, changeTab, isNotMe }) => {
 
   const toProductTab = useCallback(() => changeTab(2), [changeTab]);
   const toCustomerCareTab = useCallback(() => changeTab(3), [changeTab]);
-  const toRequestTab = useCallback(() => changeTab(4), [changeTab]);
-  const toContractTab = useCallback(() => changeTab(5), [changeTab]);
+  const toRequestTab = useCallback(() => changeTab(5), [changeTab]);
+  const toContractTab = useCallback(() => changeTab(6), [changeTab]);
 
   const handleCreateFavoriteProduct = useCallback(
     () =>

@@ -255,6 +255,7 @@ const PromotionEditor = ({ navigation, route: { params } }) => {
                   <Controller
                     name="amount"
                     control={control}
+                    defaultValue={1}
                     render={({
                       field: { onChange, value },
                       fieldState: { error },
@@ -262,7 +263,7 @@ const PromotionEditor = ({ navigation, route: { params } }) => {
                       <TextInput
                         placeholder="Nhập"
                         keyboardType="numeric"
-                        value={value ? String(value) : "1"}
+                        value={value ? String(value) : ""}
                         error={error}
                         isError={Boolean(error)}
                         onChangeText={onChange}

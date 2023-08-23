@@ -46,7 +46,13 @@ const NotificationTab = ({ queryFunc }) => {
             navigation.navigate("RequestDetails", {
               request: { id: notification.data.request },
             });
-          } else {
+          } 
+          else if (notification.data.deliverySchedule) {
+            navigation.navigate("DeliveryScheduleDetails", {
+              deliverySchedule: { id: notification.data.deliverySchedule },canRedirect: true,
+            });
+          } 
+          else {
             navigation.navigate("ContractDetails", {
               contract: { id: notification.data.contract },
             });

@@ -489,12 +489,12 @@ const DeliveryScheduleDetails = ({ navigation, route }) => {
                   paddingL-6
                   onPress={() =>
                     navigation.navigate("ContractDetails", {
-                      contract: deliveryDetails.contract,
+                      contract: deliveryDetails?.contract,
                     })
                   }
                 >
                   <Text flex stateBlueDefault>
-                    {deliveryDetails.contract.code.toUpperCase()}
+                    {deliveryDetails?.contract?.code.toUpperCase()}
                   </Text>
                   <ChevronRightSmall fill={Colors.stateBlueDefault} />
                 </TouchableOpacity>
@@ -510,12 +510,12 @@ const DeliveryScheduleDetails = ({ navigation, route }) => {
                   paddingL-6
                   onPress={() =>
                     navigation.navigate("CustomerDetails", {
-                      customer: deliveryDetails.contract.customer,
+                      customer: deliveryDetails?.contract?.customer,
                     })
                   }
                 >
                   <Text flex stateBlueDefault>
-                    {getCustomerName(deliveryDetails.contract.customer)}
+                    {getCustomerName(deliveryDetails?.contract?.customer)}
                   </Text>
                   <ChevronRightSmall fill={Colors.stateBlueDefault} />
                 </TouchableOpacity>
@@ -532,12 +532,12 @@ const DeliveryScheduleDetails = ({ navigation, route }) => {
             >
               <TextRow
                 left="Hợp đồng"
-                right={deliveryDetails.contract.code.toUpperCase()}
+                right={deliveryDetails?.contract?.code.toUpperCase()}
               />
 
               <TextRow
                 left="Khách hàng"
-                right={getCustomerName(deliveryDetails.contract.customer)}
+                right={getCustomerName(deliveryDetails?.contract?.customer)}
               />
             </View>
           )}
@@ -551,9 +551,9 @@ const DeliveryScheduleDetails = ({ navigation, route }) => {
           >
             <ProductImage
               uri={
-                deliverySchedule.allocation.favoriteProduct.product.photo?.url
+                deliveryDetails?.allocation?.favoriteProduct.product.photo?.url
               }
-              name={deliverySchedule.allocation.favoriteProduct.product.name}
+              name={deliveryDetails?.allocation?.favoriteProduct.product.name}
             />
             {information.map((e) => (
               <TextRow key={e.label} left={e.label} right={e.value} />
