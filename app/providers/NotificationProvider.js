@@ -48,7 +48,7 @@ const NotificationProvider = ({ children }) => {
       {children}
       <Toast
         visible={showToast}
-        position={"bottom"}
+        position={"top"}
         message={message}
         preset={preset}
         autoDismiss={3000}

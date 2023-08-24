@@ -3,13 +3,15 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { RefreshControl, SectionList } from "react-native";
 
 import { Button, Colors, Incubator, Text, View } from "react-native-ui-lib";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 
 import BasePage from "../../components/Base/BasePage";
 import Fab from "../../components/Button/Fab";
 import DeliveryCard from "../../components/Card/DeliveryCard";
 import Headline from "../../components/Header/Headline";
 import SwipeWrapper from "../../components/Swipe/SwipeWrapper";
+import HorizontalButtonTab from "../../components/Button/HorizontalButtonTab";
+import { DeliveryStateObject } from "../../helper/constants";
 
 import {
   Close,
@@ -23,7 +25,7 @@ import gStyles from "../../configs/gStyles";
 import { useStatusBar } from "../../helper/hooks";
 import { groupDelivery } from "../../helper/utils";
 import { useGetDeliverySchedulesQuery } from "../../store/api/delivery";
-import { selectQuery } from "../../store/slices/delivery";
+import { selectQuery,setQuery } from "../../store/slices/delivery";
 
 const DeliverySchedule = ({ navigation, route }) => {
   useStatusBar("light-content");
@@ -35,14 +37,63 @@ const DeliverySchedule = ({ navigation, route }) => {
   const toggleSearchMode = useCallback(() => setSearchMode((pre) => !pre), []);
 
   const { data = [], isFetching, refetch } = useGetDeliverySchedulesQuery({accountId:route?.params?.account?.id});
-
+  const dispatch = useDispatch();
   const handleFilter = useCallback(
     () => navigation.navigate("DeliveryFilterSettings"),
     [navigation]
   );
 
   const loading = isFetching;
+  const count = useMemo(() => {
+    const obj = {
+      approved: 0,
+      pending: 0,
+      rejected: 0,
+      draft: 0,
+    };
+    data.forEach((e) => {
+      if (
+        [DeliveryStateObject.approved, DeliveryStateObject.completed].includes(
+          e.state
+        )
+      ) {
+        obj["approved"]++;
+      } else {
+        obj[e.state]++;
+      }
+    });
 
+    return obj;
+  }, [data]);
+  const buttons = useMemo(
+      () => [
+        {
+          id: "",
+          label: "Tất cả",
+        },
+        {
+          id: "approved",
+          label: "Đã duyệt",
+          value: count["approved"],
+        },
+        {
+          id: "pending",
+          label: "Chờ duyệt",
+          value: count["pending"],
+        },
+        {
+          id: "rejected",
+          label: "Từ chối",
+          value: count["rejected"],
+        },
+        {
+          id: "draft",
+          label: "Bản nháp",
+          value: count["draft"],
+        },
+      ],
+      [count]
+    );
   useEffect(() => {
     if (isSearchMore) {
       navigation.setOptions({
@@ -108,6 +159,14 @@ const DeliverySchedule = ({ navigation, route }) => {
 
   return (
     <BasePage hasScroll={false}>
+       <HorizontalButtonTab
+        buttons={buttons}
+        selected={otherQuery.state}
+        onPress={(id) => {
+          dispatch(setQuery({ state: id }));
+          refetch();
+        }}
+      />
       <SectionList
         sections={list}
         refreshControl={
